@@ -1,6 +1,7 @@
 import importlib
 import string
 
+
 class Node:
     def __init__(self, package, function, path:string=None, variables:dict=None):
         self.package = package
