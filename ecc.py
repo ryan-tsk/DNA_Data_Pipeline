@@ -2,6 +2,7 @@ from utils import read_textfile
 from turboDNA import convolutional
 import numpy as np
 
+
 def set_variables(rate):
     if rate == '1/3':
         # ONE THIRD

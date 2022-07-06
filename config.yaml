@@ -1,0 +1,41 @@
+Compression:
+  package: custom
+  module: huffman_compression
+  function: compress
+  variables:
+    json_output: rev_codebook.json
+
+Error Correction Encoder:
+  package:
+  module: ecc
+  function: encode
+  variables:
+    rate: "1/3"
+
+Forward Mapping:
+  package:
+  module: mapping
+  function: nt_mapping
+  variables:
+
+Reverse Mapping:
+  package:
+  module: mapping
+  function: nt_mapping
+  variables:
+    binary_to_nt: False
+
+Error Correction Decoder:
+  package:
+  module: ecc
+  function: decode
+  variables:
+    rate: "1/3"
+
+Decompression:
+  package: custom
+  module: huffman_compression
+  function: decompress
+  variables:
+    json_input: rev_codebook.json
+
