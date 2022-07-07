@@ -41,4 +41,3 @@ class NodeCLI:
 
     def process(self):
         subprocess.run(self.command)
-

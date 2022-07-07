@@ -38,4 +38,3 @@ Decompression:
   function: decompress
   variables:
     json_input: rev_codebook.json
-
