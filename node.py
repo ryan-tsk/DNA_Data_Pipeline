@@ -40,4 +40,4 @@ class NodeCLI:
         return
 
     def process(self):
-        subprocess.run(self.command)
+        subprocess.run(self.command, shell=True)
