@@ -6,10 +6,10 @@ import numpy as np
 import os
 
 
-def generate_signal(data, directory):
+def generate_signal(data, file_prefix, directory):
 
     for i, seq in enumerate(data):
-        filename = f'read_{i}.fast5'
+        filename = f'{file_prefix}{i}.fast5'
         out_filepath = os.path.join(directory, filename)
         simulate_read(seq, out_filepath)
 
