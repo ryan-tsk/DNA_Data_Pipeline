@@ -1,0 +1,34 @@
+Compression:
+  nodetype: function
+  output_path:
+  module: huffman_compression
+  function: compress
+  package: custom
+  variables:
+    json_output: test_results/stage2/rev_codebook.json
+
+Error Correction Encoder:
+  nodetype: function
+  output_path:
+  module: ecc
+  function: encode
+  package:
+  variables:
+    rate: '1/3'
+
+Forward Mapping:
+  nodetype: function
+  output_path:
+  module: mapping
+  function: nt_mapping
+  package:
+  variables:
+
+Signal Generator:
+  nodetype: function
+  output_path:
+  module: signal_generator
+  function: simulate_read
+  package:
+  variables:
+    out_filepath: test_results/stage2/scrapy_test.fast5

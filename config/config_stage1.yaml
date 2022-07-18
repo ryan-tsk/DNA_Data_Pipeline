@@ -1,0 +1,52 @@
+Compression:
+  nodetype: function
+  output_path:
+  module: huffman_compression
+  function: compress
+  package: custom
+  variables:
+    json_output: test_results/stage1/rev_codebook.json
+
+Error Correction Encoder:
+  nodetype: function
+  output_path:
+  module: ecc
+  function: encode
+  package:
+  variables:
+    rate: '1/3'
+
+Forward Mapping:
+  nodetype: function
+  output_path:
+  module: mapping
+  function: nt_mapping
+  package:
+  variables:
+
+Reverse Mapping:
+  nodetype: function
+  output_path:
+  module: mapping
+  function: nt_mapping
+  package:
+  variables:
+    binary_to_nt: False
+
+Error Correction Decoder:
+  nodetype: function
+  output_path:
+  module: ecc
+  function: decode
+  package:
+  variables:
+    rate: "1/3"
+
+Decompression:
+  nodetype: function
+  module: huffman_compression
+  function: decompress
+  package: custom
+  variables:
+    json_input: rev_codebook.json
+    output_path: test_results/stage1/results.txt

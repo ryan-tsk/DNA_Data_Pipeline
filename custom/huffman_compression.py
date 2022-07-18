@@ -1,5 +1,6 @@
 import heapq
 import json
+
 from utils import binary_to_text, text_to_binary
 
 

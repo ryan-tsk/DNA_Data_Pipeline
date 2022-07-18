@@ -1,43 +1,87 @@
 import importlib
 import subprocess
+import yaml
+
+from abc import ABC, abstractmethod
+from utils import read_textfile
 
 
-class Node:
-    def __init__(self, module, function, package=None, variables: dict = None):
-        self.module = module
-        self.function = function
-        self.package = package
-        self.variables = variables
-
-        if self.package is not None:
-            if self.package == '' or self.package.isspace():
-                self.package = None
-                return
-
-            if self.module[0] != '.':
-                self.module = '.' + self.module
-
-    def process(self, data):
-        if self.package is None:
-            data = getattr(importlib.import_module(self.module), self.function)(data, **self.variables)
-        else:
-            data = getattr(importlib.import_module(self.module, self.package), self.function)(data, **self.variables)
-        return data
-
-
-class NodeCLI:
-    def __init__(self, command, input_path, output_path, variables: dict = None):
-        self.command = command
-        self.input_path = input_path
+class Node(ABC):
+    def __init__(self, name, output_path=None, variables: dict = None):
+        self.name = name
         self.output_path = output_path
         self.variables = variables
 
-    def __clean_path__(self):
-        if self.input_path == "" or self.input_path.isspace():
-            self.input_path = None
-        if self.output_path == "" or self.output_path.isspace():
-            self.output_path = None
-        return
+    @abstractmethod
+    def process(self, data):
+        pass
 
-    def process(self):
+
+class NodeFunction(Node):
+    def __init__(self, name, module, function, output_path=None, package=None, variables: dict = None):
+        super().__init__(name=name, output_path=output_path, variables=variables)
+        self.data_process = self.__init_process(module=module, package=package, function=function)
+
+        if variables is None:
+            self.variables = {}
+
+    @staticmethod
+    def __init_process(module, package, function):
+        if module is None or function is None:
+            return None
+        if package is None:
+            return getattr(importlib.import_module(module), function)
+        module = '.' + module
+        return getattr(importlib.import_module(module, package), function)
+
+    def process(self, input_stream=None):
+        print(self.name + ' node is processing...')
+        output = self.data_process(input_stream, **self.variables)
+        if self.output_path is not None:
+            with open(self.output_path, 'w') as output_file:
+                output_file.write(output)
+        return output
+
+
+class NodeCLICommand(Node):
+    def __init__(self, name, output_path, command, variables: dict = None):
+        super().__init__(name=name, output_path=output_path, variables=variables)
+        self.command = command
+
+    def process(self, data=None):
         subprocess.run(self.command, shell=True)
+
+
+class NodeFactory:
+    @staticmethod
+    def create_node(properties, name):
+        nodetype = properties['nodetype']
+        del properties['nodetype']
+        if nodetype == 'function':
+            return NodeFunction(name=name, **properties)
+        if nodetype == 'command':
+            return NodeCLICommand(**properties)
+
+
+class Pipeline:
+    def __init__(self, config_path, data_path):
+        self.nodes = []
+        self.data_path = data_path
+        self.build(config_path)
+
+    def build(self, config_path):
+        with open(config_path, 'r') as configFile:
+            config = yaml.load(configFile, Loader=yaml.FullLoader)
+
+        factory = NodeFactory()
+        for item in config:
+            node = factory.create_node(config[item], item)
+            self.nodes.append(node)
+
+    def run(self):
+        data = read_textfile(self.data_path)
+        for node in self.nodes:
+            data = node.process(data)
+
+    def test(self):
+        pass
