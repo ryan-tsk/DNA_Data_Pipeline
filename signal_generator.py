@@ -12,7 +12,7 @@ def generate_signal(data, file_prefix, directory):
         filename = f'{file_prefix}_{i}.fast5'
         id = f'TEST_{i}'
         out_filepath = os.path.join(directory, filename, id)
-        simulate_read(seq, out_filepath)
+        simulate_read(seq, out_filepath, id)
 
     return directory
 
