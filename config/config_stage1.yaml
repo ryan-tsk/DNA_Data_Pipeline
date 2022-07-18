@@ -48,5 +48,5 @@ Decompression:
   function: decompress
   package: custom
   variables:
-    json_input: rev_codebook.json
+    json_input: test_results/stage1/rev_codebook.json
     output_path: test_results/stage1/results.txt

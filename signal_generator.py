@@ -1,7 +1,19 @@
 from fast5_research import Fast5
 import scrappy
 from uuid import uuid4
+
 import numpy as np
+import os
+
+
+def generate_signal(data, directory):
+
+    for i, seq in enumerate(data):
+        filename = f'read_{i}.fast5'
+        out_filepath = os.path.join(directory, filename)
+        simulate_read(data, out_filepath)
+
+    return directory
 
 
 def simulate_read(seq, out_filepath):
@@ -61,5 +73,3 @@ def simulate_read(seq, out_filepath):
 
     with Fast5.New(out_filepath, 'w', tracking_id=tracking_id, context_tags=context_tags, channel_id=channel_id) as h:
         h.set_raw(raw_data, meta=read_id, read_number=1)
-
-    return out_filepath

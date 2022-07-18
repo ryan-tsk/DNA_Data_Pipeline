@@ -28,7 +28,7 @@ Signal Generator:
   nodetype: function
   output_path:
   module: signal_generator
-  function: simulate_read
+  function: generate_signal
   package:
   variables:
-    out_filepath: test_results/stage2/scrapy_test.fast5
+    out_filepath: stage2
