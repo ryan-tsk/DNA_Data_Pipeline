@@ -31,4 +31,4 @@ Signal Generator:
   function: generate_signal
   package:
   variables:
-    directory: stage2
+    directory: test_results/stage2
