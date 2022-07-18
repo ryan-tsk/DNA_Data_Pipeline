@@ -2,7 +2,7 @@ from node import Pipeline
 from utils import read_textfile
 
 
-pipeline = Pipeline('config/config_stage1.yaml', 'data_test.txt')
+pipeline = Pipeline('config/config_stage2.yaml', 'data_test.txt')
 data = read_textfile("data_test.txt")
 pipeline.run()
 
