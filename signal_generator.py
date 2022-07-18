@@ -10,14 +10,14 @@ def generate_signal(data, file_prefix, directory):
 
     for i, seq in enumerate(data):
         filename = f'{file_prefix}_{i}.fast5'
-        id = f'TEST_{i}'
-        out_filepath = os.path.join(directory, filename, id)
-        simulate_read(seq, out_filepath, id)
+        read_id = f'TEST_{i}'
+        out_filepath = os.path.join(directory, filename)
+        simulate_read(seq, out_filepath, read_id)
 
     return directory
 
 
-def simulate_read(seq, out_filepath, id):
+def simulate_read(seq, out_filepath, read_id):
     """
     Simulates nanopore sequencer, writes to file
     Parameters
@@ -30,7 +30,7 @@ def simulate_read(seq, out_filepath, id):
     out_filepath : string
         Name of FAST5 file which will be written as result of read.
         directory by default.
-    id : string
+    read_id : string
         ID given to read
     """
 
@@ -61,13 +61,13 @@ def simulate_read(seq, out_filepath, id):
         'duration': len(raw_data),
         'read_number': 1,
         'start_mux': 1,
-        'read_id': id,
+        'read_id': read_id,
         'scaling_used': 1,
         'median_before': 0,
     }
     tracking_id = {
         'exp_start_time': '1970-01-01T00:00:00Z',
-        'run_id': id,
+        'run_id': read_id,
         'flow_cell_id': 'FAH00000',
         'device_id': 'TEST123',
         'sample_id': 'TEST123',
