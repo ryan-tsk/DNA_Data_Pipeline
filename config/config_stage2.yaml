@@ -31,4 +31,4 @@ Signal Generator:
   function: generate_signal
   package:
   variables:
-    out_filepath: stage2
+    directory: stage2
