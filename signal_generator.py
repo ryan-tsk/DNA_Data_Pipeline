@@ -68,6 +68,7 @@ def simulate_read(seq, out_filepath):
         'exp_start_time': '1970-01-01T00:00:00Z',
         'run_id': str(uuid4()).replace('-', ''),
         'flow_cell_id': 'FAH00000',
+        'sample_id': 'TEST',
     }
     context_tags = {}
 
