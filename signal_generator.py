@@ -35,7 +35,7 @@ def simulate_read(seq, out_filepath, read_id):
     """
 
     # Using https://nanoporetech.github.io/fast5_research/examples.html as a reference
-    squiggle = scrappy.sequence_to_squiggle(seq, rescale=True).data(as_numpy=True)
+    squiggle = scrappy.sequence_to_squiggle(seq, rescale=True).data(as_numpy=True, sloika=False)
     raw_data = np.array([])
     print("squiggle: \n")
     print(squiggle)
@@ -52,7 +52,8 @@ def simulate_read(seq, out_filepath, read_id):
     # np.int16 is required, the library will refuse to write anything other
     raw_data = np.digitize(raw_data, bins).astype(np.int16)
 
-    print("digital raw data: \n" + squiggle)
+    print("digital raw data: \n")
+    print(raw_data)
 
 
     # The following are required meta data
