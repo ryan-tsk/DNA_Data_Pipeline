@@ -38,15 +38,8 @@ def simulate_read(seq, out_filepath, read_id):
     squiggle = scrappy.sequence_to_squiggle(seq, rescale=True).data(as_numpy=True)
     raw_data = np.array([])
 
-    n = 1 / np.sqrt(2)
-    raw_data = np.concatenate([
-        np.random.laplace(mean, n * stdv, int(dwell))
-        for mean, stdv, dwell in squiggle
-    ])
-
-
-    # for dwell, mean, stdv in squiggle:
-    #     raw_data = np.append(raw_data, np.random.laplace(mean, stdv/np.sqrt(2), int(round(dwell))))
+    for dwell, mean, stdv in squiggle:
+        raw_data = np.append(raw_data, np.random.laplace(mean, stdv/np.sqrt(2), int(round(dwell))))
 
     start, stop = int(min(raw_data - 1)), int(max(raw_data + 1))
     rng = stop - start
