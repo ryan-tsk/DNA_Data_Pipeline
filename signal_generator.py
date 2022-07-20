@@ -37,13 +37,16 @@ def simulate_read(seq, out_filepath, read_id):
     # Using https://nanoporetech.github.io/fast5_research/examples.html as a reference
     squiggle = scrappy.sequence_to_squiggle(seq, rescale=True).data(as_numpy=True)
     raw_data = np.array([])
-    print("squiggle: \n")
-    print(squiggle)
-    print("raw data: \n")
-    print(raw_data)
 
-    for dwell, mean, stdv in squiggle:
-        raw_data = np.append(raw_data, np.random.laplace(mean, stdv/np.sqrt(2), int(round(dwell))))
+    n = 1 / np.sqrt(2)
+    raw_data = np.concatenate([
+        np.random.laplace(mean, n * stdv, int(dwell))
+        for mean, stdv, dwell in squiggle
+    ])
+
+
+    # for dwell, mean, stdv in squiggle:
+    #     raw_data = np.append(raw_data, np.random.laplace(mean, stdv/np.sqrt(2), int(round(dwell))))
 
     start, stop = int(min(raw_data - 1)), int(max(raw_data + 1))
     rng = stop - start
@@ -51,10 +54,6 @@ def simulate_read(seq, out_filepath, read_id):
     bins = np.arange(start, stop, rng / digitisation)
     # np.int16 is required, the library will refuse to write anything other
     raw_data = np.digitize(raw_data, bins).astype(np.int16)
-
-    print("digital raw data: \n")
-    print(raw_data)
-
 
     # The following are required meta data
     channel_id = {
