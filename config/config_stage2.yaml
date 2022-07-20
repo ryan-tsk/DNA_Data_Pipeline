@@ -18,11 +18,12 @@ Error Correction Encoder:
 
 Forward Mapping:
   nodetype: function
-  output_path: dna_test_sequence.txt
+  output_path:
   module: mapping
   function: nt_mapping
   package:
   variables:
+    output_path: dna_test_sequence.txt
 
 Signal Generator:
   nodetype: function
