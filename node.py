@@ -12,6 +12,9 @@ class Node(ABC):
         self.output_path = output_path
         self.variables = variables
 
+        if variables is None:
+            self.variables = {}
+
     @abstractmethod
     def process(self, data):
         pass
@@ -21,9 +24,6 @@ class NodeFunction(Node):
     def __init__(self, name, module, function, output_path=None, package=None, variables: dict = None):
         super().__init__(name=name, output_path=output_path, variables=variables)
         self.data_process = self.__init_process(module=module, package=package, function=function)
-
-        if variables is None:
-            self.variables = {}
 
     @staticmethod
     def __init_process(module, package, function):
@@ -60,7 +60,7 @@ class NodeFactory:
         if nodetype == 'function':
             return NodeFunction(name=name, **properties)
         if nodetype == 'command':
-            return NodeCLICommand(**properties)
+            return NodeCLICommand(name=name, **properties)
 
 
 class Pipeline:
