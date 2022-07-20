@@ -37,8 +37,10 @@ def simulate_read(seq, out_filepath, read_id):
     # Using https://nanoporetech.github.io/fast5_research/examples.html as a reference
     squiggle = scrappy.sequence_to_squiggle(seq, rescale=True).data(as_numpy=True)
     raw_data = np.array([])
-    print("squiggle: \n" + squiggle)
-    print("raw data: \n" + squiggle)
+    print("squiggle: \n")
+    print(squiggle)
+    print("raw data: \n")
+    print(raw_data)
 
     for dwell, mean, stdv in squiggle:
         raw_data = np.append(raw_data, np.random.laplace(mean, stdv/np.sqrt(2), int(round(dwell))))
