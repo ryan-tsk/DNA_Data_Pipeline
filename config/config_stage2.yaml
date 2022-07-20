@@ -18,7 +18,7 @@ Error Correction Encoder:
 
 Forward Mapping:
   nodetype: function
-  output_path:
+  output_path: dna_test_sequence.txt
   module: mapping
   function: nt_mapping
   package:
