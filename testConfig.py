@@ -2,7 +2,7 @@ from node import Pipeline
 from utils import read_textfile
 
 
-pipeline = Pipeline('config/config_stage2.yaml', 'test_results/stage2/output.fastq')
+pipeline = Pipeline('config/config_stage2.yaml', 'data_test.txt')
 pipeline.run()
 
 # with open('config/template.yaml', 'r') as configfile:
