@@ -23,6 +23,7 @@ Forward Mapping:
   function: nt_mapping
   package:
   variables:
+    output_path: dna_test_sequence.txt
 
 Reverse Mapping:
   nodetype: function
