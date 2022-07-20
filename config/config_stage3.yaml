@@ -5,4 +5,4 @@ Alignment:
   function: clustal_wrapper
   package:
   variables:
-
+    variables:

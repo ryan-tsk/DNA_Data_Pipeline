@@ -16,10 +16,13 @@ def convert_to_fasta(in_file):
     return new_file
 
 
-def clustalw_wrapper(in_file, variables):
+def clustalw_wrapper(in_file, variables:dict=None):
     # in_file is a fasta file
     if in_file.endswith('.fastq'):
         in_file = convert_to_fasta(in_file)
+
+    if variables is None:
+        variables = {}
 
     cline = ClustalwCommandline("clustalw", in_file=in_file, **variables)
     subprocess.run(str(cline), shell=True)
