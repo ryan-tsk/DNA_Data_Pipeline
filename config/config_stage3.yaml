@@ -2,7 +2,7 @@ Alignment:
   nodetype: function
   output_path:
   module: alignIO_wrapper
-  function: clustal_wrapper
+  function: clustalw_wrapper
   package:
   variables:
     variables:
