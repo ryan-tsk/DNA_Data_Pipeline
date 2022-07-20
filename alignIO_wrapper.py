@@ -24,7 +24,7 @@ def clustalw_wrapper(in_file, variables:dict=None):
     if variables is None:
         variables = {}
 
-    cline = ClustalwCommandline("clustalw", in_file=in_file, **variables)
+    cline = ClustalwCommandline("clustalw", infile=in_file, **variables)
     subprocess.run(str(cline), shell=True)
 
 
