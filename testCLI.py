@@ -10,4 +10,4 @@ with open('config/config_stage3.yaml', 'r') as configFile:
 
 factory = NodeFactory()
 node = NodeFactory.create_node(config['Alignment'], 'Alignment')
-node.process('test_results/stage2/output.fastq')
+node.process('output.fastq')

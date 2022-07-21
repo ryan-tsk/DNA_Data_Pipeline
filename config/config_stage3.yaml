@@ -6,3 +6,5 @@ Alignment:
   package:
   variables:
     variables:
+      outfile: aligned_output.fasta
+      output: FASTA
