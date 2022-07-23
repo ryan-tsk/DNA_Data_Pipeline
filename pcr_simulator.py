@@ -38,8 +38,8 @@ def create_weighted_fasta(bc_path, gt_path, directory: str, weight: int, prefix_
     basecall = SeqIO.parse(bc_path, 'fasta')
     ground_truth = SeqIO.parse(gt_path, 'fasta')
 
-    bc_seqs = [record.seq for record in basecall]
-    gt_seqs = [record.seq for record in ground_truth]
+    bc_seqs = [str(record.seq) for record in basecall]
+    gt_seqs = [str(record.seq) for record in ground_truth]
 
     for i, bc_seq in enumerate(bc_seqs):
         output = []
