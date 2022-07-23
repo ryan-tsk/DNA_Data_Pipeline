@@ -17,12 +17,13 @@ def align_sequences(directory: str, wrapper: str, filepath: str, variables: dict
 
     for file in os.listdir(directory):
         output_path = os.path.join(directory, 'tmp_alignment.fasta')
-        if file.endswith('.fasta'):
-            if wrapper == 'clustalw':
+        if wrapper == 'clustalw':
                 cline = ClustalwCommandline('clustalw', infile=file, outfile=output_path, **variables)
-            if wrapper == 'muscle':
+        if wrapper == 'muscle':
                 cline = MuscleCommandline(input=file, **variables)
-            subprocess.run(str(cline), shell=True)
+
+        print("Running cline..")
+        subprocess.run(str(cline), shell=True)
 
         alignment = AlignIO.read(output_path, 'fasta')
         summary = AlignInfo.SummaryInfo(alignment)
