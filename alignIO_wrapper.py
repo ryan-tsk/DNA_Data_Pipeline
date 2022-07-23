@@ -19,13 +19,12 @@ def align_sequences(directory: str, wrapper: str, filepath: str, variables: dict
         output_path = os.path.join(directory, 'tmp_alignment.fasta')
         filepath = os.path.join(directory, file)
         if wrapper == 'clustalw':
-                print('Generating clustal line')
                 cline = ClustalwCommandline('clustalw', infile=filepath, outfile=output_path, output='FASTA', **variables)
         if wrapper == 'muscle':
                 cline = MuscleCommandline(input=file, **variables)
 
-        print("Running cline..")
-        subprocess.run(str(cline), shell=True)
+        print(f'Aligning {str(file)}...')
+        subprocess.run(str(cline), shell=True, stdout=subprocess.DEVNULL)
 
         alignment = AlignIO.read(output_path, 'fasta')
         summary = AlignInfo.SummaryInfo(alignment)
