@@ -10,7 +10,7 @@ import os
 
 
 def align_sequences(directory: str, wrapper: str, filepath: str, variables: dict = None):
-    consensus = []
+    consensus_list = []
 
     if variables is None:
         variables = {}
@@ -30,10 +30,10 @@ def align_sequences(directory: str, wrapper: str, filepath: str, variables: dict
         alignment = AlignIO.read(output_path, 'fasta')
         summary = AlignInfo.SummaryInfo(alignment)
         consensus = summary.dumb_consensus()
-        consensus.append(str(consensus))
+        consensus_list.append(str(consensus))
 
     with open(filepath, 'w') as txt:
-        txt.write('\n'.join(consensus))
+        txt.write('\n'.join(consensus_list))
 
 
 
