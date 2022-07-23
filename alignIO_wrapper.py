@@ -17,19 +17,20 @@ def align_sequences(directory: str, wrapper: str, filepath: str, variables: dict
 
     for file in os.listdir(directory):
         output_path = os.path.join(directory, 'tmp_alignment.fasta')
-        filepath = os.path.join(directory, file)
-        if wrapper == 'clustalw':
-                cline = ClustalwCommandline('clustalw', infile=filepath, outfile=output_path, output='FASTA', **variables)
-        if wrapper == 'muscle':
-                cline = MuscleCommandline(input=file, **variables)
+        input_path = os.path.join(directory, file)
+        if file.endswith('.fasta'):
+            if wrapper == 'clustalw':
+                    cline = ClustalwCommandline('clustalw', infile=input_path, outfile=output_path, output='FASTA', **variables)
+            if wrapper == 'muscle':
+                    cline = MuscleCommandline(input=file, **variables)
 
-        print(f'Aligning {str(file)}...')
-        subprocess.run(str(cline), shell=True, stdout=subprocess.DEVNULL)
+            print(f'Aligning {str(file)}...')
+            subprocess.run(str(cline), shell=True, stdout=subprocess.DEVNULL)
 
-        alignment = AlignIO.read(output_path, 'fasta')
-        summary = AlignInfo.SummaryInfo(alignment)
-        consensus = summary.dumb_consensus()
-        consensus_list.append(str(consensus))
+            alignment = AlignIO.read(output_path, 'fasta')
+            summary = AlignInfo.SummaryInfo(alignment)
+            consensus = summary.dumb_consensus()
+            consensus_list.append(str(consensus))
 
     with open(filepath, 'w') as txt:
         txt.write('\n'.join(consensus_list))
