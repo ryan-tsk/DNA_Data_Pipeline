@@ -17,9 +17,10 @@ def align_sequences(directory: str, wrapper: str, filepath: str, variables: dict
 
     for file in os.listdir(directory):
         output_path = os.path.join(directory, 'tmp_alignment.fasta')
+        filepath = os.path.join(directory, file)
         if wrapper == 'clustalw':
                 print('Generating clustal line')
-                cline = ClustalwCommandline('clustalw', infile=file, outfile=output_path, output='FASTA', **variables)
+                cline = ClustalwCommandline('clustalw', infile=filepath, outfile=output_path, output='FASTA', **variables)
         if wrapper == 'muscle':
                 cline = MuscleCommandline(input=file, **variables)
 
