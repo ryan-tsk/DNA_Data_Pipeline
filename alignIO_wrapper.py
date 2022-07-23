@@ -11,6 +11,10 @@ import os
 
 def align_sequences(directory: str, wrapper: str, filepath: str, variables: dict = None):
     consensus = []
+
+    if variables is None:
+        variables = {}
+
     for file in os.listdir(directory):
         output_path = os.path.join(directory, 'tmp_alignment.fasta')
         if file.endswith('.fasta'):
@@ -45,9 +49,6 @@ def clustalw_wrapper(in_file, variables:dict=None):
     # in_file is a fasta file
     if in_file.endswith('.fastq'):
         in_file = convert_to_fasta(in_file)
-
-    if variables is None:
-        variables = {}
 
     cline = ClustalwCommandline("clustalw", infile=in_file, **variables)
     return cline
