@@ -1,12 +1,34 @@
 from Bio.Align.Applications import ClustalwCommandline, MuscleCommandline
 # from Bio.Emboss.Applications import NeedleCommandline, WaterCommandline
 
-from Bio import SeqIO
-from Bio import AlignIO
+from Bio import SeqIO, AlignIO
+from Bio.Align import AlignInfo
 import subprocess
 import os
 
 # SeqIO.convert("example.fastq", "fastq", "example.fasta", "fasta")
+
+
+def align_sequences(directory: str, wrapper: str, variables: dict):
+    cons = []
+    for file in os.listdir(directory):
+        output_path = os.path.join(directory, 'output.fasta')
+        if file.endswith('.fasta'):
+            if wrapper == 'clustalw':
+                cline = ClustalwCommandline('clustalw', infile=file, outfile=output_path, **variables)
+            if wrapper == 'muscle':
+                cline = MuscleCommandline(input=file, **variables)
+            subprocess.run(str(cline), shell=True)
+
+        alignment = AlignIO.read(output_path, 'fasta')
+        summary = AlignInfo.SummaryInfo(alignment)
+        consensus = summary.dumb_consensus()
+        cons.append(consensus)
+    print(cons)
+
+
+def create_consensus(directory: str):
+    pass
 
 
 def convert_to_fasta(in_file):
@@ -25,7 +47,8 @@ def clustalw_wrapper(in_file, variables:dict=None):
         variables = {}
 
     cline = ClustalwCommandline("clustalw", infile=in_file, **variables)
-    subprocess.run(str(cline), shell=True)
+    return cline
+    #subprocess.run(str(cline), shell=True)
 
 
 def muscle_wrapper(in_file, out_file, variables):

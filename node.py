@@ -50,6 +50,7 @@ class NodeCLICommand(Node):
 
     def process(self, data=None):
         subprocess.run(self.command, shell=True)
+        return self.output_path
 
 
 class NodeFactory:
