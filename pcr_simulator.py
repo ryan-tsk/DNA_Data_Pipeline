@@ -44,10 +44,10 @@ def create_weighted_fasta(bc_path, gt_path, directory: str, weight: int, prefix_
     for i, bc_seq in enumerate(bc_seqs):
         output = []
         seq_id = f'{prefix_id}_{i}'
-        output.extend([f'>{seq_id}', bc_seq])
+        output.extend([f'>{seq_id}_{i}', bc_seq])
 
         for j in range(weight):
-            output.extend([f'>{seq_id}', gt_seqs[i]])
+            output.extend([f'>{seq_id}_{j+1}', gt_seqs[i]])
 
         filepath = os.path.join(directory, f'{seq_id}.fasta')
         with open(filepath, 'w') as fasta:
