@@ -61,3 +61,13 @@ PCR Simulator (Weighted):
     directory: test_results/stage4/weighted
     weight: 100
 
+Consensus Alignment:
+  nodetype: function
+  output_path:
+  module: alignIO_wrapper
+  function: align_sequences
+  package:
+  variables:
+    wrapper: clustalw
+    filepath: test_results/stage4/consensus.txt
+    variables:

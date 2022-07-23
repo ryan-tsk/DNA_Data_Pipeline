@@ -9,10 +9,10 @@ import os
 # SeqIO.convert("example.fastq", "fastq", "example.fasta", "fasta")
 
 
-def align_sequences(directory: str, wrapper: str, variables: dict):
-    cons = []
+def align_sequences(directory: str, wrapper: str, filepath: str, variables: dict = None):
+    consensus = []
     for file in os.listdir(directory):
-        output_path = os.path.join(directory, 'output.fasta')
+        output_path = os.path.join(directory, 'tmp_alignment.fasta')
         if file.endswith('.fasta'):
             if wrapper == 'clustalw':
                 cline = ClustalwCommandline('clustalw', infile=file, outfile=output_path, **variables)
@@ -23,8 +23,11 @@ def align_sequences(directory: str, wrapper: str, variables: dict):
         alignment = AlignIO.read(output_path, 'fasta')
         summary = AlignInfo.SummaryInfo(alignment)
         consensus = summary.dumb_consensus()
-        cons.append(consensus)
-    print(cons)
+        consensus.append(str(consensus))
+
+    with open(filepath, 'w') as txt:
+        txt.write('\n'.join(consensus))
+
 
 
 def create_consensus(directory: str):
