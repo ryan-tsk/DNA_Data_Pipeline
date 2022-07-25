@@ -5,7 +5,7 @@ Compression:
   function: compress
   package: custom
   variables:
-    json_output: test_results/stage1/rev_codebook.json
+    json_output: test_results/stage4/rev_codebook.json
 
 Error Correction Encoder:
   nodetype: function
@@ -71,3 +71,30 @@ Consensus Alignment:
     wrapper: clustalw
     filepath: test_results/stage4/consensus.txt
     variables:
+
+Reverse Mapping:
+  nodetype: function
+  output_path:
+  module: mapping
+  function: nt_mapping
+  package:
+  variables:
+    binary_to_nt: False
+
+Error Correction Decoder:
+  nodetype: function
+  output_path:
+  module: ecc
+  function: decode
+  package:
+  variables:
+    rate: "1/3"
+
+Decompression:
+  nodetype: function
+  module: huffman_compression
+  function: decompress
+  package: custom
+  variables:
+    json_input: test_results/stage4/rev_codebook.json
+    output_path: test_results/stage4/results.txt

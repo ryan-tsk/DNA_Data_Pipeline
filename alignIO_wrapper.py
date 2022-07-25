@@ -3,6 +3,9 @@ from Bio.Align.Applications import ClustalwCommandline, MuscleCommandline
 
 from Bio import SeqIO, AlignIO
 from Bio.Align import AlignInfo
+
+from utils import read_textfile
+
 import subprocess
 import os
 
@@ -15,9 +18,13 @@ def align_sequences(directory: str, wrapper: str, filepath: str, variables: dict
     if variables is None:
         variables = {}
 
-    for file in os.listdir(directory):
+    folder = os.listdir(directory)  #testing to see if this prevents tmp_alignment.fasta from being aligned
+
+    for file in folder:
         output_path = os.path.join(directory, 'tmp_alignment.fasta')
         input_path = os.path.join(directory, file)
+
+        #need to ignore tmp_alignment.fasta
         if file.endswith('.fasta'):
             if wrapper == 'clustalw':
                     cline = ClustalwCommandline('clustalw', infile=input_path, outfile=output_path, output='FASTA', **variables)
@@ -35,6 +42,7 @@ def align_sequences(directory: str, wrapper: str, filepath: str, variables: dict
     with open(filepath, 'w') as txt:
         txt.write('\n'.join(consensus_list))
 
+    return consensus_list
 
 
 def create_consensus(directory: str):
@@ -63,7 +71,7 @@ def muscle_wrapper(in_file, out_file, variables):
         in_file = convert_to_fasta(in_file)
 
     cline = MuscleCommandline(input=in_file, output=out_file, **variables)
-    subprocess.run(str(cline), shell=True)
+    return cline
 
 
 
