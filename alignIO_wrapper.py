@@ -70,7 +70,7 @@ def muscle_wrapper(input, output, variables):
     if input.endswith('.fastq'):
         input = convert_to_fasta(input)
 
-    cline = MuscleCommandline(input=input, output=output, **variables)
+    cline = MuscleCommandline(input=input, out=output, **variables)
     return cline
 
 
