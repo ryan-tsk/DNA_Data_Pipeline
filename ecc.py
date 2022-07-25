@@ -85,7 +85,6 @@ def encode(data, rate, input_path=None, output_path=None):
             for encoded_flatstream in encoded_flatstreams:
                 enc.write("%s\n" % encoded_flatstream)
 
-    print(encoded_flatstreams)
     return encoded_flatstreams
 
 
@@ -107,6 +106,8 @@ def decode(data, rate, input_path=None, output_path=None):
     for i, read_encoded_bin in enumerate(data):
         print("Decoding %s of %s..." % (i, len(data)))
         read_encoded_bin = [int(bin) for bin in read_encoded_bin]
+        print(read_encoded_bin)
+        print(len(read_encoded_bin))
         decoded_streams.append(
             convolutional.viterbiDecoderWithFlagging(8, 0, myFanOutFunction, read_encoded_bin, symbolSize,
                                                      produceGraphics=False)[0][0].pathTriggers)

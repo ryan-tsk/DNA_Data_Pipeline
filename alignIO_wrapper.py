@@ -29,7 +29,7 @@ def align_sequences(directory: str, wrapper: str, filepath: str, variables: dict
             if wrapper == 'clustalw':
                     cline = ClustalwCommandline('clustalw', infile=input_path, outfile=output_path, output='FASTA', **variables)
             if wrapper == 'muscle':
-                    cline = MuscleCommandline(input=file, **variables)
+                    cline = MuscleCommandline(input=input_path, output=output_path,  **variables)
 
             print(f'Aligning {str(file)}...')
             subprocess.run(str(cline), shell=True, stdout=subprocess.DEVNULL)
@@ -42,7 +42,7 @@ def align_sequences(directory: str, wrapper: str, filepath: str, variables: dict
     with open(filepath, 'w') as txt:
         txt.write('\n'.join(consensus_list))
 
-    return consensus_list
+    return ''.join(consensus_list)
 
 
 def create_consensus(directory: str):
@@ -66,11 +66,11 @@ def clustalw_wrapper(in_file, variables:dict=None):
     #subprocess.run(str(cline), shell=True)
 
 
-def muscle_wrapper(in_file, out_file, variables):
-    if in_file.endswith('.fastq'):
-        in_file = convert_to_fasta(in_file)
+def muscle_wrapper(input, output, variables):
+    if input.endswith('.fastq'):
+        input = convert_to_fasta(input)
 
-    cline = MuscleCommandline(input=in_file, output=out_file, **variables)
+    cline = MuscleCommandline(input=input, output=output, **variables)
     return cline
 
 

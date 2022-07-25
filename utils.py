@@ -1,7 +1,7 @@
 import string
 
 
-def text_to_binary(data, input_path=None, output_path=None, text_type: string = 'utf-8', nt_len: int = 200,
+def text_to_binary(data, input_path=None, output_path=None, text_type: string = 'utf-8', bin_len: int = 200,
                    codebook: dict = None):
     if input_path is not None:
         data = read_textfile(input_path)
@@ -21,7 +21,7 @@ def text_to_binary(data, input_path=None, output_path=None, text_type: string = 
         padding_info = "{0:08b}".format(padding)
         bin_sequence += padding_info
 
-    bin_sequence = '\n'.join([bin_sequence[0 + i: nt_len + i] for i in range(0, len(bin_sequence), nt_len)])
+    bin_sequence = '\n'.join([bin_sequence[i: bin_len + i] for i in range(0, len(bin_sequence), bin_len)])
 
     if output_path is not None:
         write_textfile(output_path, bin_sequence)

@@ -1,18 +1,36 @@
-def nt_mapping(data, input_path=None, output_path=None, binary_to_nt: bool = True):
+def nt_mapping(data, input_path=None, output_path=None, binary_to_nt: bool = True, nt_len: int = 300):
     if input_path is not None:
         with open(input_path, 'r') as infile:
             data = infile.readlines()
 
+
     if binary_to_nt:
-        sequences = [binary_to_bases(seq.strip()) for seq in data]
+        output = [binary_to_bases(seq.strip()) for seq in data]
     else:
-        sequences = [bases_to_binary(seq.strip()) for seq in data]
+        if isinstance(data, str):
+            data = ''.join(data)
+            data = data.replace('\n','')
+        clean_data = []
+        for i in range (0, len(data), nt_len):
+            #print(data[i:nt_len + i])
+            clean_data.append(data[i:nt_len + i])
+
+        output = []
+        for data in clean_data:
+           # data = data.replace('\n','')
+            print(data)
+            output.append(bases_to_binary(data))
+
+        #print(clean_data)
+       # output = [bases_to_binary(seq.strip()) for seq in clean_data]
+        #output = ''.join(output)
+        #print(output)
 
     if output_path is not None:
         with open(output_path, 'w') as outfile:
-            outfile.write('\n'.join(sequences))
+            outfile.write('\n'.join(output))
 
-    return sequences
+    return output
 
 
 def binary_to_bases(bin_seq):
