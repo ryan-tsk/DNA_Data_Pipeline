@@ -19,9 +19,10 @@ def align_sequences(directory: str, wrapper: str, filepath: str, variables: dict
         variables = {}
 
     folder = os.listdir(directory)  #testing to see if this prevents tmp_alignment.fasta from being aligned
-
+    output_path = os.path.join(directory, 'tmp_alignment.fasta')
     for file in folder:
-        output_path = os.path.join(directory, 'tmp_alignment.fasta')
+        if file == output_path:
+            continue
         input_path = os.path.join(directory, file)
 
         #need to ignore tmp_alignment.fasta

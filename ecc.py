@@ -107,6 +107,8 @@ def decode(data, rate, input_path=None, output_path=None):
         print("Decoding %s of %s..." % (i, len(data)))
         read_encoded_bin = [int(bin) for bin in read_encoded_bin]
         print(read_encoded_bin)
+        while len(read_encoded_bin) % 3 != 0:
+            read_encoded_bin.pop()
         print(len(read_encoded_bin))
         decoded_streams.append(
             convolutional.viterbiDecoderWithFlagging(8, 0, myFanOutFunction, read_encoded_bin, symbolSize,
