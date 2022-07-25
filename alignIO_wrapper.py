@@ -29,7 +29,7 @@ def align_sequences(directory: str, wrapper: str, filepath: str, variables: dict
             if wrapper == 'clustalw':
                     cline = ClustalwCommandline('clustalw', infile=input_path, outfile=output_path, output='FASTA', **variables)
             if wrapper == 'muscle':
-                    cline = MuscleCommandline(input=input_path, output=output_path,  **variables)
+                    cline = MuscleCommandline(input=input_path, out=output_path,  **variables)
 
             print(f'Aligning {str(file)}...')
             subprocess.run(str(cline), shell=True, stdout=subprocess.DEVNULL)
