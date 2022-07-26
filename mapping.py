@@ -3,28 +3,14 @@ def nt_mapping(data, input_path=None, output_path=None, binary_to_nt: bool = Tru
         with open(input_path, 'r') as infile:
             data = infile.readlines()
 
-
     if binary_to_nt:
         output = [binary_to_bases(seq.strip()) for seq in data]
     else:
-        if isinstance(data, str):
-            data = ''.join(data)
-            data = data.replace('\n','')
-        clean_data = []
-        for i in range (0, len(data), nt_len):
-            #print(data[i:nt_len + i])
-            clean_data.append(data[i:nt_len + i])
-
         output = []
-        for data in clean_data:
-           # data = data.replace('\n','')
-            print(data)
-            output.append(bases_to_binary(data))
-
-        #print(clean_data)
-       # output = [bases_to_binary(seq.strip()) for seq in clean_data]
-        #output = ''.join(output)
-        #print(output)
+        for seq in data:
+            if seq > nt_len:
+                seq = seq[0:nt_len]
+            output.append(seq)
 
     if output_path is not None:
         with open(output_path, 'w') as outfile:

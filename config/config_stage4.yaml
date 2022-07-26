@@ -46,7 +46,7 @@ Signal Generator:
 
 Basecaller:
   nodetype: command
-  command: bonito basecaller --batchsize 32 --chunksize 2000 dna_r9.4.1_e8.1_sup@v3.3 test_results/stage4/signals > test_results/stage4/output.fastq
+  command: bonito basecaller --batchsize 16 --chunksize 2000 dna_r9.4.1_e8.1_sup@v3.3 test_results/stage4/signals > test_results/stage4/output.fastq
   output_path: test_results/stage4/output.fastq
   variables:
 

@@ -33,7 +33,7 @@ def align_sequences(directory: str, wrapper: str, filepath: str, variables: dict
                     cline = MuscleCommandline(input=input_path, out=output_path,  **variables)
 
             print(f'Aligning {str(file)}...')
-            subprocess.run(str(cline), shell=True, stdout=subprocess.DEVNULL)
+            subprocess.run(str(cline), shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 
             alignment = AlignIO.read(output_path, 'fasta')
             summary = AlignInfo.SummaryInfo(alignment)
@@ -43,7 +43,7 @@ def align_sequences(directory: str, wrapper: str, filepath: str, variables: dict
     with open(filepath, 'w') as txt:
         txt.write('\n'.join(consensus_list))
 
-    return ''.join(consensus_list)
+    return consensus_list
 
 
 def create_consensus(directory: str):
