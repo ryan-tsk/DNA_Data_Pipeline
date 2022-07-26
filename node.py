@@ -94,12 +94,14 @@ class Pipeline:
     def run(self):
         data = read_textfile(self.data_path)
         for i, node in enumerate(self.nodes):
-            log = [node.name, 'Input', str(data), '\n']
+            log = [node.name, 'Input:', str(data), '\n']
             data = node.process(data, self.result_directory)
 
-            log.extend(['Output', str(data)])
-            filename = f'{i}_{node.name}.txt'
+            log.extend(['Output:', str(data)])
+            suffix = str(node.name).replace(' ', '_')
+            filename = f'{i}_{suffix}.txt'
             write_textfile(os.path.join(self.log_directory, filename), log, writelines=True)
+        write_textfile(data)
 
     def _init_env_variables(self, variables: dict, result_folder='results', log_folder='logs'):
         self.data_path = variables[self.input_path_name]
