@@ -16,6 +16,7 @@ def nt_mapping(data, input_path=None, output_path=None, binary_to_nt: bool = Tru
         with open(output_path, 'w') as outfile:
             outfile.write('\n'.join(output))
 
+    print(output)
     return output
 
 
