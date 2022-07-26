@@ -48,7 +48,7 @@ Basecaller:
   outfile: output.fastq
   variables:
 
-PCR Simulator (Weighted):
+Create Weighted FASTA:
   nodetype: function
   module: PCR_simulator
   function: create_weighted_fasta
