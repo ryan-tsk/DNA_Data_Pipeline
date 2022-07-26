@@ -8,7 +8,7 @@ def nt_mapping(data, input_path=None, output_path=None, binary_to_nt: bool = Tru
     else:
         output = []
         for seq in data:
-            if seq > nt_len:
+            if len(seq) > nt_len:
                 seq = seq[0:nt_len]
             output.append(seq)
 
