@@ -1,5 +1,4 @@
 from fast5_research import Fast5
-import signal
 
 import numpy as np
 import os

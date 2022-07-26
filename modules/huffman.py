@@ -5,7 +5,7 @@ The original code has been modified for the purpose of building a DNA data stora
 
 import heapq, os
 
-from mapping import binary_to_text, text_to_binary
+from modules.mapping import binary_to_text, text_to_binary
 from utils import write_json, load_json
 
 

@@ -2,7 +2,7 @@
 # This code has been modified to fit into the DNA data storage pipeline
 
 from utils import read_textfile
-from turboECC import convolutional
+from turboDNA import convolutional
 
 import numpy as np
 import os
