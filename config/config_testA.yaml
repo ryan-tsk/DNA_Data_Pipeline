@@ -5,7 +5,6 @@ Environment:
 
 Compression:
   nodetype: function
-  output_path:
   module: huffman
   function: compress
   package: modules
@@ -15,7 +14,6 @@ Compression:
 
 Error Correction Encoder:
   nodetype: function
-  output_path:
   module: turboECC
   function: encode
   package: modules
@@ -24,7 +22,6 @@ Error Correction Encoder:
 
 Forward Mapping:
   nodetype: function
-  output_path:
   module: mapping
   function: nt_mapping
   package: modules
@@ -32,7 +29,6 @@ Forward Mapping:
 
 Write Ground Truth:
   nodetype: function
-  output_path:
   module: PCR_simulator
   function: create_ground_truth
   package: modules
@@ -41,7 +37,6 @@ Write Ground Truth:
 
 Signal Generator:
   nodetype: function
-  output_path:
   module: signal
   function: generate_signal
   package: modules
@@ -55,7 +50,6 @@ Basecaller:
 
 PCR Simulator (Weighted):
   nodetype: function
-  output_path:
   module: pcr_simulator
   function: create_weighted_fasta
   package:
@@ -66,7 +60,6 @@ PCR Simulator (Weighted):
 
 Consensus Alignment:
   nodetype: function
-  output_path:
   module: alignment
   function: align_sequences
   package: modules
@@ -77,7 +70,6 @@ Consensus Alignment:
 
 Reverse Mapping:
   nodetype: function
-  output_path:
   module: mapping
   function: nt_mapping
   package: modules
@@ -86,7 +78,6 @@ Reverse Mapping:
 
 Error Correction Decoder:
   nodetype: function
-  output_path:
   module: turboECC
   function: decode
   package: modules
