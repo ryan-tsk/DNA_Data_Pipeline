@@ -101,7 +101,8 @@ class Pipeline:
             suffix = str(node.name).replace(' ', '_')
             filename = f'{i}_{suffix}.txt'
             write_textfile(os.path.join(self.log_directory, filename), log, writelines=True)
-        write_textfile(data)
+
+        write_textfile(os.path.join(self.result_directory, 'results.txt'), data)
 
     def _init_env_variables(self, variables: dict, result_folder='results', log_folder='logs'):
         self.data_path = variables[self.input_path_name]
