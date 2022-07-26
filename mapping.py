@@ -10,7 +10,7 @@ def nt_mapping(data, input_path=None, output_path=None, binary_to_nt: bool = Tru
         for seq in data:
             if len(seq) > nt_len:
                 seq = seq[0:nt_len]
-            output.append(seq)
+            output.append(bases_to_binary(seq.strip()))
 
     if output_path is not None:
         with open(output_path, 'w') as outfile:
