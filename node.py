@@ -53,8 +53,9 @@ class NodeCLICommand(Node):
         self.outfile = outfile
 
     def process(self, data=None, result_directory=None):
+        print(self.name + ' node is processing...')
         subprocess.run(self.command, shell=True)
-        return os.path.join(result_directory, self.outfile)
+        return self.outfile
 
 
 class NodeFactory:
