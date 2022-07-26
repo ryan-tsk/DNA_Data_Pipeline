@@ -45,7 +45,7 @@ def cleanup(directory):
         path = os.path.join(file, directory)
         if os.path.isfile(path) or os.path.islink(path):
             os.unlink(path)
-        else:
-            shutil.rmtree(directory)
+        elif os.path.isdir(file):
+            shutil.rmtree(file)
 
 #make common util functions for read, write, data conversion, etc
