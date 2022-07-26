@@ -1,20 +1,20 @@
+Environment:
+  Input Path: test_data/short_data.txt
+  Directory (Result): test_one
+  Directory (Log): test_one
+
 NodeFunction:
-  name:
-  nodetype:
-  input_type:
-  output_type:
+  nodetype: function
   output_path:
-  module:
-  function:
-  package:
+  module: huffman
+  function: compress
+  package: modules
   variables:
+    reverse_filename: reverse_codebook.json
+    forward_filename: forward_codebook.json
 
 NodeCLICommand:
-  name:
-  nodetype:
-  input_type:
-  output_type:
-  command:
-  output_path:
+  nodetype: command
+  command: bonito basecaller --batchsize 16 --chunksize 2000 dna_r9.4.1_e8.1_sup@v3.3 results/stage4/signals > results/stage4/output.fastq
+  outfile: output.fastq
   variables:
-
