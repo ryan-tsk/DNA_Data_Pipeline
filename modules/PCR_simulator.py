@@ -27,10 +27,11 @@ def create_ground_truth(seqs, result_directory, filename: str, prefix_id: str = 
     return seqs
 
 
-def create_weighted_fasta(bc_filename, result_directory, gt_filename: str, weight: int, prefix_id: str = 'TEST'):
+def create_weighted_fasta(bc_filename, result_directory, gt_filename: str, folder: str = 'weighted',
+                          weight: int = 100, prefix_id: str = 'TEST'):
     bc_path = os.path.join(result_directory, bc_filename)
     gt_path = os.path.join(result_directory, gt_filename)
-    directory = os.path.join(result_directory, 'weighted')
+    directory = os.path.join(result_directory, folder)
 
     if not os.path.exists(directory):
         os.mkdir(directory)
