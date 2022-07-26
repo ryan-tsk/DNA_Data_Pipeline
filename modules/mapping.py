@@ -29,10 +29,6 @@ def nt_mapping(data, input_path=None, binary_to_nt: bool = True, nt_len: int = 3
 
     return output
 
-    #if output_path is not None:
-    #    with open(output_path, 'w') as outfile:
-    #        outfile.write('\n'.join(output))
-
 
 def binary_to_bases(bin_seq):
     """
