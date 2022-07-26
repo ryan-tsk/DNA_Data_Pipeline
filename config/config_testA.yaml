@@ -52,7 +52,7 @@ Create Weighted FASTA:
   nodetype: function
   module: PCR_simulator
   function: create_weighted_fasta
-  package:
+  package: modules
   variables:
     gt_path: results/stage4/ground_truth.fasta
     directory: results/stage4/weighted
