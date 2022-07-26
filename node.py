@@ -38,7 +38,7 @@ class NodeFunction(Node):
     def process(self, input_stream, result_directory):
         print(self.name + ' node is processing...')
         sig = signature(self.data_process)
-        if 'result_dictionary' in sig:
+        if 'result_dictionary' in sig.parameters:
             print("testing..")
             output = self.data_process(input_stream, result_directory, **self.variables)
             return output
