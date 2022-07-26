@@ -86,7 +86,7 @@ Error Correction Decoder:
 
 Decompression:
   nodetype: function
-  module: huffman_compression
+  module: huffman
   function: decompress
   package: modules
   variables:
