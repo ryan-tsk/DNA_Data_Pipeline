@@ -50,7 +50,7 @@ Basecaller:
 
 PCR Simulator (Weighted):
   nodetype: function
-  module: pcr_simulator
+  module: PCR_simulator
   function: create_weighted_fasta
   package:
   variables:
