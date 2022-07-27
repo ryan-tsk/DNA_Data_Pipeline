@@ -2,7 +2,7 @@ import subprocess
 import os
 
 from Bio.Align.Applications import ClustalwCommandline, MuscleCommandline
-from Bio import SeqIO, AlignIO
+from Bio import AlignIO
 from Bio.Align import AlignInfo
 
 from utils import write_textfile
