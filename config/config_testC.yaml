@@ -1,0 +1,43 @@
+Environment:
+  Input Path: test_data/short_data.txt
+  Directory (Result): test_C
+  Directory (Log): test_C
+
+Compression:
+  nodetype: function
+  module: huffman
+  function: compress
+  package: modules
+  variables:
+    reverse_filename: reverse_codebook.json
+    forward_filename: forward_codebook.json
+
+Error Correction Encoder:
+  nodetype: function
+  module: turboECC
+  function: encode
+  package: modules
+  variables:
+    rate: '1/3'
+
+Forward Mapping:
+  nodetype: function
+  module: mapping
+  function: nt_mapping
+  package: modules
+  variables:
+
+Write Ground Truth:
+  nodetype: function
+  module: PCR_simulator
+  function: create_ground_truth
+  package: modules
+  variables:
+    filename: ground_truth.fasta
+
+Signal Generator:
+  nodetype: function
+  module: signal
+  function: generate_signal
+  package: modules
+  variables:
