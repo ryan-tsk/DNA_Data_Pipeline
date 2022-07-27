@@ -15,7 +15,7 @@ def generate_signal(data, result_directory: str, file_prefix: str = 'TEST', fold
         filename = f'{file_prefix}_{i}.fast5'
         read_id = f'{file_prefix}_{i}'
         out_filepath = os.path.join(directory, filename)
-        simulate_read(seq, out_filepath, read_id)
+        simulate_read(seq, out_filepath, read_id.encode())
 
     return directory
 
@@ -27,14 +27,10 @@ def simulate_read(seq, out_filepath, read_id):
     ----------
     seq : string
         Nucleotide sequence
-    out_dir : string
-        Working directory to write intermediate results to.
-
     out_filepath : string
         Name of FAST5 file which will be written as result of read.
         directory by default.
-    read_id : string
-        ID given to read
+    read_id : bytes
     """
 
     # Using https://nanoporetech.github.io/fast5_research/examples.html as a reference
