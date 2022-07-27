@@ -4,9 +4,10 @@ import uuid
 import scrappy
 import numpy as np
 import os
+import h5py
 
 
-def generate_signal(data, result_directory: str, file_prefix: str = 'TEST', folder: str = 'signals'):
+def generate_signal(data, result_directory: str, file_prefix: str = 'TEST', folder: str = 'signals', encode=False):
     directory = os.path.join(result_directory, folder)
 
     if not os.path.exists(directory):
@@ -17,6 +18,12 @@ def generate_signal(data, result_directory: str, file_prefix: str = 'TEST', fold
         read_id = f'{file_prefix}_{i}'
         out_filepath = os.path.join(directory, filename)
         simulate_read(seq, out_filepath, read_id)
+
+        if encode:
+            file = h5py.File(filename, 'r+')
+            set = file['Raw']['Reads']['Read_1']
+            read_id = set.attrs['read_id']
+            set.attrs['read_id'] = np.string_(read_id)
 
     return directory
 
