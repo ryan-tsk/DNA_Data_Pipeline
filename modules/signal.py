@@ -14,7 +14,7 @@ def generate_signal(data, result_directory: str, file_prefix: str = 'TEST', fold
 
     for i, seq in enumerate(data):
         filename = f'{file_prefix}_{i}.fast5'
-        read_id = f'{file_prefix}_{i}'.encode('utf-8')
+        read_id = bytearray(f'{file_prefix}_{i}')
         out_filepath = os.path.join(directory, filename)
         simulate_read(seq, out_filepath, read_id)
 

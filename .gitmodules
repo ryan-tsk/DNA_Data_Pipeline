@@ -1,3 +1,6 @@
 [submodule "bonito"]
 	path = bonito
 	url = https://github.com/ryan-tsk/bonito.git
+[submodule "Chiron"]
+	path = Chiron
+	url = https://github.com/ryan-tsk/Chiron
