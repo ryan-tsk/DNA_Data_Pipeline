@@ -20,7 +20,7 @@ def generate_signal(data, result_directory: str, file_prefix: str = 'TEST', fold
         simulate_read(seq, out_filepath, read_id)
 
         if encode:
-            file = h5py.File(filename, 'r+')
+            file = h5py.File(out_filepath, 'r+')
             set = file['Raw']['Reads']['Read_1']
             read_id = set.attrs['read_id']
             set.attrs['read_id'] = np.string_(read_id)
