@@ -41,3 +41,4 @@ Signal Generator:
   function: generate_signal
   package: modules
   variables:
+    encode: true
