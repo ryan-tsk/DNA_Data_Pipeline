@@ -65,11 +65,11 @@ def simulate_read(seq, out_filepath, read_id):
         'median_before': 0,
     }
     tracking_id = {
-        'exp_start_time': '1970-01-01T00:00:00Z',
+        'exp_start_time': '1970-01-01T00:00:00Z'.encode(),
         'run_id': read_id,
-        'flow_cell_id': 'FAH00000',
-        'device_id': 'TEST123',
-        'sample_id': 'TEST123',
+        'flow_cell_id': 'FAH00000'.encode(),
+        'device_id': 'TEST123'.encode(),
+        'sample_id': 'TEST123'.encode(),
     }
     context_tags = {}
 
