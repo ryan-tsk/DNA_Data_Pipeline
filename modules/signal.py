@@ -1,5 +1,6 @@
 from fast5_research import Fast5
 
+import uuid
 import scrappy
 import numpy as np
 import os
@@ -13,9 +14,9 @@ def generate_signal(data, result_directory: str, file_prefix: str = 'TEST', fold
 
     for i, seq in enumerate(data):
         filename = f'{file_prefix}_{i}.fast5'
-        read_id = f'{file_prefix}_{i}'
+        read_id = f'{file_prefix}_{i}'.encode('utf-8')
         out_filepath = os.path.join(directory, filename)
-        simulate_read(seq, out_filepath, read_id.encode())
+        simulate_read(seq, out_filepath, read_id)
 
     return directory
 
@@ -65,11 +66,11 @@ def simulate_read(seq, out_filepath, read_identity):
         'median_before': 0,
     }
     tracking_id = {
-        'exp_start_time': '1970-01-01T00:00:00Z'.encode(),
+        'exp_start_time': '1970-01-01T00:00:00Z',
         'run_id': read_identity,
-        'flow_cell_id': 'FAH00000'.encode(),
-        'device_id': 'TEST123'.encode(),
-        'sample_id': 'TEST123'.encode(),
+        'flow_cell_id': 'FAH00000',
+        'device_id': 'TEST123',
+        'sample_id': 'TEST123',
     }
     context_tags = {}
 
