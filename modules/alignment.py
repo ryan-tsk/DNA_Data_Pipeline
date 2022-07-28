@@ -37,9 +37,11 @@ def align_sequences(directory: str, result_directory: str, wrapper: str, filenam
                 raise ValueError("No wrapper provided")
 
             prankname = os.path.join(output_path, '.best.fas')
+            print(prankname)
+            print(output_path)
             if os.path.exists(prankname):
                 print('renaming..')
-                os.rename(prankname, output_path )
+                os.rename(prankname, output_path)
 
             print(f'Aligning {str(file)}...')
             print(cline)
