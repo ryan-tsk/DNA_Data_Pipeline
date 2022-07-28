@@ -27,8 +27,8 @@ def chiron(directory, result_directory, outfile='output.fastq', env='chiron'):
     env_call = f'conda activate {env}'
     filepath = os.path.join(result_directory, outfile)
 
-    subprocess.run(f'bash -c {env_call}', shell=True)
-    subprocess.Popen([filepath, command], shell=True)
+    subprocess.run(f'bash -c "{env_call}"', shell=True)
+    subprocess.run(command, shell=True)
 
     chiron_directory = f'{result_directory}/result'
 
