@@ -1,7 +1,7 @@
 Environment:
   Input Path: test_data/short_data.txt
-  Directory (Result): test_C
-  Directory (Log): test_C
+  Directory (Result): A4
+  Directory (Log): A4
 
 Compression:
   nodetype: function
@@ -41,14 +41,15 @@ Signal Generator:
   function: generate_signal
   package: modules
   variables:
-    encode: true
 
 Basecaller:
   nodetype: function
   module: basecaller
-  function: chiron
+  function: bonito
   package: modules
   variables:
+    batchsize: 16
+    chunksize: 2000
 
 Create Weighted FASTA:
   nodetype: function
@@ -64,7 +65,7 @@ Consensus Alignment:
   function: align_sequences
   package: modules
   variables:
-    wrapper: muscle
+    wrapper: prank
     filename: consensus.txt
     variables:
 

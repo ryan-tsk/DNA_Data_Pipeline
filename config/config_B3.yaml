@@ -1,0 +1,93 @@
+Environment:
+  Input Path: test_data/short_data.txt
+  Directory (Result): B3
+  Directory (Log): B3
+
+Compression:
+  nodetype: function
+  module: huffman
+  function: compress
+  package: modules
+  variables:
+    reverse_filename: reverse_codebook.json
+    forward_filename: forward_codebook.json
+
+Error Correction Encoder:
+  nodetype: function
+  module: turboECC
+  function: encode
+  package: modules
+  variables:
+    rate: '1/3'
+
+Forward Mapping:
+  nodetype: function
+  module: mapping
+  function: nt_mapping
+  package: modules
+  variables:
+
+Write Ground Truth:
+  nodetype: function
+  module: PCR_simulator
+  function: create_ground_truth
+  package: modules
+  variables:
+    filename: ground_truth.fasta
+
+Signal Generator:
+  nodetype: function
+  module: signal
+  function: generate_signal
+  package: modules
+  variables:
+    encode: true
+
+Basecaller:
+  nodetype: function
+  module: basecaller
+  function: chiron
+  package: modules
+  variables:
+
+Create Weighted FASTA:
+  nodetype: function
+  module: PCR_simulator
+  function: create_weighted_fasta
+  package: modules
+  variables:
+    gt_filename: ground_truth.fasta
+
+Consensus Alignment:
+  nodetype: function
+  module: alignment
+  function: align_sequences
+  package: modules
+  variables:
+    wrapper: clustalo
+    filename: consensus.txt
+    variables:
+
+Reverse Mapping:
+  nodetype: function
+  module: mapping
+  function: nt_mapping
+  package: modules
+  variables:
+    binary_to_nt: False
+
+Error Correction Decoder:
+  nodetype: function
+  module: turboECC
+  function: decode
+  package: modules
+  variables:
+    rate: "1/3"
+
+Decompression:
+  nodetype: function
+  module: huffman
+  function: decompress
+  package: modules
+  variables:
+    reverse_filename: reverse_codebook.json

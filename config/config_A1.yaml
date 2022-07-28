@@ -1,7 +1,7 @@
 Environment:
   Input Path: test_data/short_data.txt
-  Directory (Result): test_A
-  Directory (Log): test_A
+  Directory (Result): A1
+  Directory (Log): A1
 
 Compression:
   nodetype: function
@@ -44,7 +44,7 @@ Signal Generator:
 
 Basecaller:
   nodetype: command
-  command: bonito basecaller --batchsize 16 --chunksize 2000 dna_r9.4.1_e8.1_sup@v3.3 results/test_A/signals > results/test_A/output.fastq
+  command: bonito basecaller --batchsize 16 --chunksize 2000 dna_r9.4.1_e8.1_sup@v3.3 results/A1/signals > results/A1/output.fastq
   outfile: output.fastq
   variables:
 
