@@ -38,6 +38,7 @@ def align_sequences(directory: str, result_directory: str, wrapper: str, filenam
 
             prankname = os.path.join(output_path, '.best.fas')
             if os.path.exists(prankname):
+                print('renaming..')
                 os.rename(prankname, output_path )
 
             print(f'Aligning {str(file)}...')
