@@ -33,8 +33,11 @@ def chiron(directory, result_directory, folder='chiron', outfile='output.fastq',
     filepath = os.path.join(result_directory, outfile)
     subprocess.run(command, shell=True)
 
+    chiron_result = os.path.join(output_dir, 'result')
+    print(chiron_result)
+    print(os.listdir(chiron_result))
     records = []
-    for file in os.listdir(os.path.join(output_dir, 'result')):
+    for file in os.listdir(chiron_result):
         print(file)
         records.append(SeqIO.read(file, 'fastq'))
 
