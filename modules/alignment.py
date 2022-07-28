@@ -31,9 +31,9 @@ def align_sequences(directory: str, result_directory: str, wrapper: str, filenam
                 cline = MuscleCommandline(input=input_path, out=output_path,  **variables)
             elif wrapper == 'clustalo':
                 cline = ClustalOmegaCommandline(infile=input_path, outfile=output_path, **variables)
-                os.remove(f'{os.path.join(directory, tmpfile)}.best.fas')
             elif wrapper == 'prank':
                 cline = PrankCommandline(d=input_path, o=output_path, **variables)
+                os.remove(f'{os.path.join(directory, tmpfile)}.best.fas')
             else:
                 raise ValueError("No wrapper provided")
 
