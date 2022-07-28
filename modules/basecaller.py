@@ -25,7 +25,6 @@ def bonito(directory, result_directory, outfile='output.fastq', batchsize=0, chu
 
 def chiron(directory, result_directory, folder='chiron', outfile='output.fastq', env='chiron'):
     output_dir = os.path.join(result_directory, folder)
-
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
 
@@ -34,15 +33,8 @@ def chiron(directory, result_directory, folder='chiron', outfile='output.fastq',
     filepath = os.path.join(result_directory, outfile)
     subprocess.run(command, shell=True)
 
-    chiron_result = os.path.join(output_dir, 'result')
-    print(chiron_result)
-    print(natsorted(os.listdir(chiron_result)))
-    records = []
-    for file in natsorted(os.listdir(chiron_result)):
-        path = os.path.join(chiron_result, file)
-        records.append(SeqIO.read(path, 'fastq'))
-
-    #records = [SeqIO.read(file, 'fastq') for file in os.listdir(os.path.join(output_dir, 'result'))]
+    chiron_result = natsorted(os.listdir(os.path.join(output_dir, 'result')))
+    records = [SeqIO.read(file, 'fastq') for file in chiron_result]
     SeqIO.write(records, filepath, 'fastq')
 
     return outfile
