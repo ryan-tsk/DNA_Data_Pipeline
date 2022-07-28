@@ -36,7 +36,7 @@ def align_sequences(directory: str, result_directory: str, wrapper: str, filenam
             else:
                 raise ValueError("No wrapper provided")
 
-            prankname = os.path.join(output_path, '.best.fas')
+            prankname = f'{output_path}.best.fast'
             print(prankname)
             print(output_path)
             if os.path.exists(prankname):
