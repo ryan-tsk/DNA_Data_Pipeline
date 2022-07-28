@@ -33,17 +33,15 @@ def align_sequences(directory: str, result_directory: str, wrapper: str, filenam
                 cline = ClustalOmegaCommandline(infile=input_path, outfile=output_path, **variables)
             elif wrapper == 'prank':
                 cline = PrankCommandline(d=input_path, o=output_path, **variables)
-                os.remove(f'{os.path.join(directory, tmpfile)}.best.fas')
             else:
                 raise ValueError("No wrapper provided")
+
+            print(f'Aligning {str(file)}...')
+            subprocess.run(str(cline), shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 
             prankname = f'{output_path}.best.fas'
             if os.path.exists(prankname):
                 os.rename(prankname, output_path)
-
-            print(f'Aligning {str(file)}...')
-            print(cline)
-            subprocess.run(str(cline), shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 
             alignment = AlignIO.read(output_path, 'fasta')
             summary = AlignInfo.SummaryInfo(alignment)
