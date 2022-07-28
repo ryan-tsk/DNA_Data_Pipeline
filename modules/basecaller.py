@@ -3,6 +3,7 @@ from Bio import SeqIO
 
 import os
 import subprocess
+from natsort import natsorted
 
 
 def bonito(directory, result_directory, outfile='output.fastq', batchsize=0, chunksize=0,
@@ -35,9 +36,9 @@ def chiron(directory, result_directory, folder='chiron', outfile='output.fastq',
 
     chiron_result = os.path.join(output_dir, 'result')
     print(chiron_result)
-    print(sorted(os.listdir(chiron_result)))
+    print(natsorted(os.listdir(chiron_result)))
     records = []
-    for file in sorted(os.listdir(chiron_result)):
+    for file in natsorted(os.listdir(chiron_result)):
         path = os.path.join(chiron_result, file)
         records.append(SeqIO.read(path, 'fastq'))
 

@@ -6,6 +6,7 @@ from Bio import AlignIO
 from Bio.Align import AlignInfo
 
 from utils import write_textfile
+from natsort import natsorted
 
 
 def align_sequences(directory: str, result_directory: str, wrapper: str, filename: str, variables: dict = None):
@@ -15,7 +16,7 @@ def align_sequences(directory: str, result_directory: str, wrapper: str, filenam
         variables = {}
 
     output_path = os.path.join(directory, 'tmp_alignment.fasta')
-    for file in os.listdir(directory):
+    for file in natsorted(os.listdir(directory)):
         input_path = os.path.join(directory, file)
         if input_path == output_path:
             continue
