@@ -25,8 +25,11 @@ def bonito(directory, result_directory, outfile='output.fastq', batchsize=0, chu
 def chiron(directory, result_directory, folder='chiron', outfile='output.fastq', env='chiron'):
     output_dir = os.path.join(result_directory, folder)
 
+    if not os.path.exists(output_dir):
+        os.mkdir(output_dir)
+
     chiron_call = f'chiron call -i {directory} -o {output_dir}'
-    command = f'conda run -n {env}; {chiron_call}'
+    command = f'conda run -n {env} {chiron_call}'
     filepath = os.path.join(result_directory, outfile)
     subprocess.run(command, shell=True)
 
