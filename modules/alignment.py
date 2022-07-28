@@ -46,7 +46,6 @@ def align_sequences(directory: str, result_directory: str, wrapper: str, filenam
             alignment = AlignIO.read(output_path, 'fasta')
             summary = AlignInfo.SummaryInfo(alignment)
             consensus = summary.dumb_consensus()
-            print(str(consensus))
             consensus_list.append(str(consensus))
             os.remove(output_path)
 
