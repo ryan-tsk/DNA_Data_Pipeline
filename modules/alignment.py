@@ -41,13 +41,14 @@ def align_sequences(directory: str, result_directory: str, wrapper: str, filenam
                 raise ValueError("No wrapper provided")
 
             print(f'Aligning {str(file)}...')
-            print(cline)
             subprocess.run(str(cline), shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 
             alignment = AlignIO.read(output_path, 'fasta')
             summary = AlignInfo.SummaryInfo(alignment)
             consensus = summary.dumb_consensus()
+            print(str(consensus))
             consensus_list.append(str(consensus))
+            os.remove(output_path)
 
     write_textfile(os.path.join(result_directory, filename), consensus_list, writelines=True)
 
