@@ -33,11 +33,12 @@ def align_sequences(directory: str, result_directory: str, wrapper: str, filenam
                 cline = ClustalOmegaCommandline(infile=input_path, outfile=output_path, **variables)
             elif wrapper == 'prank':
                 cline = PrankCommandline(d=input_path, o=output_path, **variables)
-            elif wrapper == 'dialign':
-                cline = DialignCommandline(input=input_path, fn=os.path.splitext(output_path),
-                                           fa=True, **variables)
             else:
                 raise ValueError("No wrapper provided")
+
+            prankname = os.path.join(output_path, '.best.fas')
+            if os.path.exists(prankname):
+                os.rename(prankname, output_path )
 
             print(f'Aligning {str(file)}...')
             print(cline)
