@@ -17,7 +17,7 @@ def bonito(directory, result_directory, outfile='output.fastq', batchsize=0, chu
     if chunksize > 0:
         chunk = f'--chunksize {str(chunksize)}'
 
-    command = f'bonito basecaller' + batch + chunk + f'{model} {directory} > {filepath}'
+    command = f'bonito basecaller {batch} {chunk} {model} {directory} > {filepath}'
     subprocess.run(command, shell=True)
 
     return outfile
