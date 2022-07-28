@@ -32,7 +32,7 @@ def align_sequences(directory: str, result_directory: str, wrapper: str, filenam
             elif wrapper == 'clustalo':
                 cline = ClustalOmegaCommandline(infile=input_path, outfile=output_path, **variables)
             elif wrapper == 'prank':
-                cline = PrankCommandline(d=input_path, o=os.path.splitext(output_path), f=8,
+                cline = PrankCommandline(d=input_path, o=os.path.splitext(output_path)[0], f=8,
                                          notree=True, noxml=True, **variables)
             elif wrapper == 'dialign':
                 cline = DialignCommandline(input=input_path, fn=os.path.splitext(output_path),

@@ -65,7 +65,7 @@ Consensus Alignment:
   function: align_sequences
   package: modules
   variables:
-    wrapper: muscle
+    wrapper: clustalw
     filename: consensus.txt
     variables:
 
