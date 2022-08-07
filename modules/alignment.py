@@ -1,8 +1,7 @@
 import subprocess
 import os
 
-from Bio.Align.Applications import ClustalwCommandline, MuscleCommandline, ClustalOmegaCommandline
-from Bio.Align.Applications import PrankCommandline, DialignCommandline
+from Bio.Align.Applications import ClustalwCommandline, MuscleCommandline, ClustalOmegaCommandline, PrankCommandline
 from Bio import AlignIO
 from Bio.Align import AlignInfo
 

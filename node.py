@@ -2,6 +2,7 @@ import importlib
 import subprocess
 import yaml
 import os
+import logging
 
 from abc import ABC, abstractmethod
 from utils import read_textfile, write_textfile, cleanup
@@ -36,7 +37,6 @@ class NodeFunction(Node):
         return getattr(importlib.import_module(module, package), function)
 
     def process(self, input_stream, result_directory):
-        print(self.name + ' node is processing...')
         sig = signature(self.data_process)
         if 'result_directory' in sig.parameters:
             output = self.data_process(input_stream, result_directory, **self.variables)
@@ -70,44 +70,57 @@ class NodeFactory:
 
 
 class Pipeline:
-    def __init__(self, config_path):
-        self.environment_name = 'Environment'
-        self.input_path_name = 'Input Path'
-        self.result_dir_name = 'Directory (Result)'
-        self.log_dir_name = 'Directory (Log)'
+    def __init__(self, config_path, input_path=None, output_path='results.txt', stages=False):
+        self.input_path = input_path
+        self.output_path = output_path
+        self.stages = stages
 
         with open(config_path, 'r') as configFile:
-            config = yaml.load(configFile, Loader=yaml.FullLoader)
+            self.config = yaml.load(configFile, Loader=yaml.FullLoader)
 
-        self._init_env_variables(config[self.environment_name])
+        environment = self.config.pop('Environment')
+        self._init_environment(environment)
+        logging.basicConfig(filename=os.path.join(self.log_directory, 'log.txt'), format="%(asctime)s %(message)s")
         self.nodes = []
-        self.build(config)
+        self.build(self.config)
 
     def build(self, config):
         factory = NodeFactory()
         for item in config:
-            if item == self.environment_name:
-                continue
             node = factory.create_node(config[item], item)
             self.nodes.append(node)
 
     def run(self):
-        data = read_textfile(self.data_path)
+        data = read_textfile(self.input_path)
         for i, node in enumerate(self.nodes):
-            log = [node.name, 'Input:', str(data), '\n']
-            data = node.process(data, self.result_directory)
+            pre_data = data
 
-            log.extend(['Output:', str(data)])
-            suffix = str(node.name).replace(' ', '_')
-            filename = f'{i}_{suffix}.txt'
-            write_textfile(os.path.join(self.log_directory, filename), log, writelines=True)
+            try:
+                logging.info(node.name + 'node is running...')
+                data = node.process(data, self.result_directory)
+            except Exception as e:
+                if hasattr(e, 'message'):
+                    message = e.message
+                else:
+                    message = e
+                output = f'Node {node.name} has failed. Cause: {message}'
+                logging.error(output)
+                raise
 
-        write_textfile(os.path.join(self.result_directory, 'results.txt'), data)
+            if self.stages:
+                stage_result = [node.name, 'Input:', str(pre_data), '\n', 'Output:', str(data)]
+                suffix = str(node.name).replace(' ', '_')
+                filename = f'{i}_{suffix}.txt'
+                write_textfile(os.path.join(self.stage_directory, filename), stage_result, writelines=True)
 
-    def _init_env_variables(self, variables: dict, result_folder='results', log_folder='logs'):
-        self.data_path = variables[self.input_path_name]
-        self.result_directory = os.path.join(result_folder, variables[self.result_dir_name])
-        self.log_directory = os.path.join(log_folder, variables[self.log_dir_name])
+        write_textfile(os.path.join(self.result_directory, self.output_path), data)
+
+    def _init_environment(self, variables: dict):
+        if self.input_path is None:
+            self.input_path = variables['input']
+
+        self.result_directory = os.path.join(variables.get('results', 'results'), variables['name'])
+        self.log_directory = os.path.join(variables.get('logs', 'logs'), variables['name'])
 
         if not os.path.exists(self.result_directory):
             os.mkdir(self.result_directory)
@@ -115,5 +128,12 @@ class Pipeline:
         if not os.path.exists(self.log_directory):
             os.mkdir(self.log_directory)
 
+        if self.stages:
+            self.stage_directory = os.path.join(variables.get('stages', 'stages'), variables['name'])
+            if not os.path.exists(self.stage_directory):
+                os.mkdir(self.stage_directory)
+
         cleanup(self.result_directory)
         cleanup(self.log_directory)
+        cleanup(self.stage_directory)
+

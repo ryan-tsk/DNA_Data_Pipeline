@@ -1,7 +1,9 @@
 Environment:
-  Input Path: test_data/short_data.txt
-  Directory (Result): A1
-  Directory (Log): A1
+  input: test_data/short_data.txt
+  name: A1    #Subfolder
+  results:    #Optional - specific results directory if needed, default to results in current directory
+  logs:       #Optional - specific logs directory if needed, defaults to logs in current directory
+  stages:     #Optional - specific stages directory if needed, defaults to stages in current directory
 
 Compression:
   nodetype: function
