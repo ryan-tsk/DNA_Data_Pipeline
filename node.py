@@ -132,8 +132,8 @@ class Pipeline:
             self.stage_directory = os.path.join(variables.get('stages', 'stages'), variables['name'])
             if not os.path.exists(self.stage_directory):
                 os.mkdir(self.stage_directory)
+            cleanup(self.stage_directory)
 
         cleanup(self.result_directory)
         cleanup(self.log_directory)
-        cleanup(self.stage_directory)
 
