@@ -98,15 +98,14 @@ class Pipeline:
             pre_data = data
 
             try:
-                logging.info(node.name + 'node is running...')
+                logging.info(f'{node.name} node is running...')
                 data = node.process(data, self.result_directory)
             except Exception as e:
                 if hasattr(e, 'message'):
                     message = e.message
                 else:
                     message = e
-                output = f'Node {node.name} has failed. Cause: {message}'
-                logging.error(output)
+                logging.error(f'Node {node.name} has failed. Cause: {message}')
                 raise
 
             if self.stages:
