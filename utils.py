@@ -41,8 +41,10 @@ def convert_to_fasta(in_file):
 
 
 def cleanup(directory):
+    print(f'Cleaning {directory}')
     for file in os.listdir(directory):
         path = os.path.join(file, directory)
+        print(f"Deleting path: {path}")
         if os.path.isfile(path) or os.path.islink(path):
             os.unlink(path)
         elif os.path.isdir(file):

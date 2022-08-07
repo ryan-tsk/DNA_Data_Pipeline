@@ -11,6 +11,5 @@ parser.add_argument('-o', '--output',
                     default='results.txt')
 
 args = parser.parse_args()
-print(args.config)
 pipeline = Pipeline(config_path=args.config, input_path=args.input, output_path=args.output, stages=args.stages)
 pipeline.run()

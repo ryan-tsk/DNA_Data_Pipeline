@@ -53,7 +53,6 @@ class NodeCLICommand(Node):
         self.outfile = outfile
 
     def process(self, data=None, result_directory=None):
-        print(self.name + ' node is processing...')
         subprocess.run(self.command, shell=True)
         return self.outfile
 
@@ -80,7 +79,6 @@ class Pipeline:
 
         environment = self.config.pop('Environment')
         self._init_environment(environment)
-        logging.basicConfig(filename=os.path.join(self.log_directory, 'log.txt'), format="%(asctime)s %(message)s")
         self.nodes = []
         self.build(self.config)
 
@@ -91,6 +89,8 @@ class Pipeline:
             self.nodes.append(node)
 
     def run(self):
+        logging.basicConfig(filename=os.path.join(self.log_directory, 'log.txt'), filemode='a',
+                            format="%(asctime)s %(message)s")
         data = read_textfile(self.input_path)
         for i, node in enumerate(self.nodes):
             pre_data = data
