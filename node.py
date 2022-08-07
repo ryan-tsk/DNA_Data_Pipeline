@@ -74,6 +74,8 @@ class Pipeline:
         self.output_path = output_path
         self.stages = stages
 
+        self.logger = logging.getLogger('Pipeline')
+
         with open(config_path, 'r') as configFile:
             self.config = yaml.load(configFile, Loader=yaml.FullLoader)
 
@@ -90,7 +92,7 @@ class Pipeline:
 
     def run(self):
         logging.basicConfig(filename=os.path.join(self.log_directory, 'log.txt'), filemode='a',
-                            format="%(asctime)s %(message)s")
+                            format="%(asctime)s %(message)s", level=logging.DEBUG)
         data = read_textfile(self.input_path)
         for i, node in enumerate(self.nodes):
             pre_data = data
@@ -136,4 +138,3 @@ class Pipeline:
 
         cleanup(self.result_directory)
         cleanup(self.log_directory)
-
