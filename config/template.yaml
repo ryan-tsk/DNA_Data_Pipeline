@@ -1,9 +1,9 @@
 Environment:
   input: test_data/short_data.txt
   name: A1    #Subfolder
-  results:    #Optional - specific results directory if needed, default to results in current directory
-  logs:       #Optional - specific logs directory if needed, defaults to logs in current directory
-  stages:     #Optional - specific stages directory if needed, defaults to stages in current directory
+  results:    #Optional - specific results directory if needed, default to results in current directory. Delete if not used
+  logs:       #Optional - specific logs directory if needed, defaults to logs in current directory. Delete if not used
+  stages:     #Optional - specific stages directory if needed, defaults to stages in current directory. Delete if not used
 
 NodeFunction:
   nodetype: function
