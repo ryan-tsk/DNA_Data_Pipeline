@@ -35,7 +35,7 @@ def chiron(directory, result_directory, folder='chiron', outfile='output.fastq',
     subprocess.run(command, shell=True)
 
     chiron_result = natsorted(os.listdir(os.path.join(output_dir, 'result')))
-    records = [SeqIO.read(file, 'fastq') for file in chiron_result]
+    records = [SeqIO.read(os.path.join(output_dir, f'result/{file}'), 'fastq') for file in chiron_result]
     SeqIO.write(records, filepath, 'fastq')
 
     return outfile
