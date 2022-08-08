@@ -42,10 +42,13 @@ Signal Generator:
   variables:
 
 Basecaller:
-  nodetype: command
-  command: bonito basecaller --batchsize 16 --chunksize 2000 dna_r9.4.1_e8.1_sup@v3.3 results/A1/signals > results/A1/output.fastq
-  outfile: output.fastq
+  nodetype: function
+  module: basecaller
+  function: bonito
+  package: modules
   variables:
+    batchsize: 16
+    chunksize: 2000
 
 Create Weighted FASTA:
   nodetype: function
