@@ -13,7 +13,7 @@ Compression:
 
 Error Correction Encoder:
   nodetype: function
-  module: turboECC
+  module: euclid
   function: euclidEncode
   package: modules
   variables:
