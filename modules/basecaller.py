@@ -6,7 +6,7 @@ import subprocess
 from natsort import natsorted
 
 
-def bonito(directory, result_directory, outfile='output.fastq', batchsize=0, chunksize=0,
+def bonito(directory, result_directory, outfile='output.fastq', env='bonito', batchsize=0, chunksize=0,
            model='dna_r9.4.1_e8.1_sup@v3.3'):
     filepath = os.path.join(result_directory, outfile)
     batch = ''
@@ -17,8 +17,8 @@ def bonito(directory, result_directory, outfile='output.fastq', batchsize=0, chu
     if chunksize > 0:
         chunk = f'--chunksize {str(chunksize)}'
 
-    command = f'bonito basecaller {batch} {chunk} {model} {directory} > {filepath}'
-    print(command)
+    bonito_call = f'bonito basecaller {batch} {chunk} {model} {directory} > {filepath}'
+    command = f'conda run -n {env} {bonito_call}'
     subprocess.run(command, shell=True)
 
     return outfile
