@@ -27,6 +27,7 @@ def euclidEncode(data, filepath, assignMech):
         padding = '0' * (triggerLength - (len(data) % triggerLength))
         data = data + padding
     data = data.strip('\n')
+    print(data)
     encodedStream = convolutional.FSMdictionaryEncoder(data, euclidFSM)
     flatStream = ''
     for sublist in encodedStream:
