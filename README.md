@@ -1,7 +1,16 @@
 # DNA_Data_Pipeline
 A Modular Data Pipeline for DNA Data Storage (MSc Project)
 
-## Setup
+## Installation and Setup
+
+
+### Pipeline
+
+### Bonito 
+
+### Chiron 
+
+### Alignment Programs
 
 
 ## User Guide
