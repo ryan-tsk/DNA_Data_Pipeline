@@ -1,0 +1,21 @@
+Environment:
+  input: test_data/short_data.txt
+  name: E1    #Subfolder
+
+Compression:
+  nodetype: function
+  module: huffman
+  function: compress
+  package: modules
+  variables:
+    reverse_filename: reverse_codebook.json
+    forward_filename: forward_codebook.json
+
+Error Correction Encoder:
+  nodetype: function
+  module: turboECC
+  function: euclidEncode
+  package: modules
+  variables:
+    filepath: Euclid/gcTrackingSymbolSize4.npy
+    assignMech: 'track'
