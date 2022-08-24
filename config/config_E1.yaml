@@ -19,6 +19,7 @@ Error Correction Encoder:
   variables:
     filepath: Euclid/gcTrackingSymbolSize4.npy
     assignMech: 'track'
+    segment_length: 300
 
 Signal Generator:
   nodetype: function

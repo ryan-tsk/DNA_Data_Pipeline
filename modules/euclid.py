@@ -5,7 +5,7 @@ from Euclid import convolutional
 from Euclid import mapping
 
 
-def euclidEncode(data, filepath, assignMech):
+def euclidEncode(data, filepath, assignMech, segment_length:int =0):
     mechanism = completelyRandom
     if assignMech == 'track':
         mechanism = trackGClevel
@@ -33,4 +33,9 @@ def euclidEncode(data, filepath, assignMech):
         flatStream = flatStream + sublist
     # Now we map the binary flat stream back into bases (A,C,T,G)
     codedData = mapping.binaryStreamToBases(flatStream)
+
+    if segment_length > 0:
+        output = [codedData[i:i + segment_length] for i in range(0, len(codedData), segment_length)]
+        return output
+
     return codedData
