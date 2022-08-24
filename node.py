@@ -46,7 +46,7 @@ class NodeFunction(Node):
         return output
 
 
-class NodeCLICommand(Node):
+class NodeCLI(Node):
     def __init__(self, name, outfile, command, variables: dict = None):
         super().__init__(name=name, variables=variables)
         self.command = command
@@ -65,7 +65,7 @@ class NodeFactory:
         if nodetype == 'function':
             return NodeFunction(name=name, **properties)
         if nodetype == 'command':
-            return NodeCLICommand(name=name, **properties)
+            return NodeCLI(name=name, **properties)
 
 
 class Pipeline:

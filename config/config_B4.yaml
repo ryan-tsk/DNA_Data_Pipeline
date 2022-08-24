@@ -1,7 +1,6 @@
 Environment:
-  Input Path: test_data/short_data.txt
-  Directory (Result): B4
-  Directory (Log): B4
+  input: test_data/short_data.txt
+  name: B4    #Subfolder
 
 Compression:
   nodetype: function

@@ -16,6 +16,6 @@ NodeFunction:
 
 NodeCLICommand:
   nodetype: command
-  command: bonito basecaller --batchsize 16 --chunksize 2000 dna_r9.4.1_e8.1_sup@v3.3 results/stage4/signals > results/stage4/output.fastq
+  command: conda run -n bonito bonito basecaller --batchsize 16 --chunksize 2000 dna_r9.4.1_e8.1_sup@v3.3 results/A1/signals > results/A1/output.fastq
   outfile: output.fastq
   variables:
