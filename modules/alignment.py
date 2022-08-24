@@ -24,7 +24,7 @@ def align_sequences(directory: str, result_directory: str, wrapper: str, filenam
 
         if file.endswith('.fasta'):
             if wrapper == 'clustalw':
-                cline = ClustalwCommandline('clustalw', infile=input_path, outfile=output_path,
+                cline = ClustalwCommandline('clustalw2', infile=input_path, outfile=output_path,
                                             output='FASTA', **variables)
             elif wrapper == 'muscle':
                 cline = MuscleCommandline(input=input_path, out=output_path,  **variables)
