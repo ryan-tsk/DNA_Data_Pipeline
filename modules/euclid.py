@@ -12,7 +12,6 @@ def euclidEncode(data, filepath, assignMech):
     elif assignMech == 'random':
         mechanism = completelyRandom
 
-
     workSpaceDictionary = np.load(filepath, allow_pickle=True).item()
     c = workSpaceDictionary['c']
     vsym = workSpaceDictionary['vsym']
@@ -23,11 +22,11 @@ def euclidEncode(data, filepath, assignMech):
     initialState = '0'*symbolSize
     euclidFSM = convolutional.makeEuclidFSM(verticalSymbols, horizontalSymbols, outputFSM, initialState)
 
+    data = ''.join(data.splitlines())
     if (len(data) % triggerLength) != 0:
         padding = '0' * (triggerLength - (len(data) % triggerLength))
         data = data + padding
 
-    data = ''.join(data.splitlines())
     encodedStream = convolutional.FSMdictionaryEncoder(data, euclidFSM)
     flatStream = ''
     for sublist in encodedStream:
