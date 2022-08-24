@@ -32,6 +32,8 @@ Signal Generator:
 Basecaller:
   nodetype: function
   module: basecaller
-  function: chiron
+  function: bonito
   package: modules
   variables:
+    batchsize: 16
+    chunksize: 2000

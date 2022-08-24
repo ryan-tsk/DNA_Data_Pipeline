@@ -98,7 +98,9 @@ class Pipeline:
             pre_data = data
 
             try:
-                logging.info(f'{node.name} node is running...')
+                message = f'{node.name} node is running...'
+                logging.info(message)
+                print(message)
                 data = node.process(data, self.result_directory)
             except Exception as e:
                 if hasattr(e, 'message'):
