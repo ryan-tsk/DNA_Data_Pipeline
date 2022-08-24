@@ -44,7 +44,6 @@ def align_sequences(directory: str, result_directory: str, wrapper: str, filenam
                 raise ValueError("No wrapper provided")
 
             print(f'Aligning {str(file)}...')
-            print(str(cline))
             subprocess.run(str(cline), shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 
             prankname = f'{output_path}.best.fas'
