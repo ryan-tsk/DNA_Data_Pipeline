@@ -1,20 +1,39 @@
+# This template serves as a guide for configuring nodes in the pipeline
+
+# Environment object is used specifically to configure the pipeline object - it is not needed if you are only using the Node API
+# input:  Input file path - can override by specifying the filepath using -i in main
+# name: Subfolder where all results will be stored - by default the directory will be results/A1
+# results: Optional - specific results directory if needed, default to results in current directory. Delete if not used
+# logs: Optional - specific logs directory if needed, defaults to logs in current directory. Delete if not used
+# stages: Optional - specific stages directory if needed, defaults to stages in current directory. Delete if not used
 Environment:
   input: test_data/short_data.txt
-  name: A1    #Subfolder
-  results:    #Optional - specific results directory if needed, default to results in current directory. Delete if not used
-  logs:       #Optional - specific logs directory if needed, defaults to logs in current directory. Delete if not used
-  stages:     #Optional - specific stages directory if needed, defaults to stages in current directory. Delete if not used
+  name: A1
+  results:
+  logs:
+  stages:
 
+# Template for building NodeFunction objects through the NodeFactory
+# nodetype: specifies the node type (function or command)
+# module: specifies the python file for the process function
+# function: specifies the name of the process function
+# package: specifies the sub-directory of the python file(optional)
+# variables: any supplementary inputs for the process function (must be dictionary form)
 NodeFunction:
-  nodetype: function
-  module: huffman
+  nodetype: function   # specifies the node type (function or command)
+  module: huffman      # specifies that the module is
   function: compress
   package: modules
   variables:
     reverse_filename: reverse_codebook.json
     forward_filename: forward_codebook.json
 
-NodeCLICommand:
+# Template for building NodeCLI objects through the NodeFactory
+# nodetype: specifies the node type (function or command)
+# command: full command that must be run in the shell (if environment switching, make sure to set up your conda env)
+# outfile: the output file name (this will be saved to the result directory - in this example its results/A1)
+# variables: any supplementary variables must be in dict form (usually not needed)
+NodeCLI:
   nodetype: command
   command: conda run -n bonito bonito basecaller --batchsize 16 --chunksize 2000 dna_r9.4.1_e8.1_sup@v3.3 results/A1/signals > results/A1/output.fastq
   outfile: output.fastq
