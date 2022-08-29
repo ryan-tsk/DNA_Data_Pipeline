@@ -1,3 +1,10 @@
+"""
+Read simulation (simulate_read) code adapted from : https://github.com/jasminequah/dna_archival_storage
+FAST5 saving and metadata adapted from: https://nanoporetech.github.io/fast5_research/examples.html
+The original code has been modified to accommodate the DNA Storage Pipeline Project
+"""
+
+
 from fast5_research import Fast5
 
 import uuid
@@ -8,6 +15,19 @@ import h5py
 
 
 def generate_signal(data, result_directory: str, file_prefix: str = 'TEST', folder: str = 'signals', encode=False):
+    """
+    --DESCRIPTION--
+    Generates nanopore sequencing signals based on the input sequence - signals are saved to FAST5 file
+
+    Parameters
+    ----------
+    data : Input data (nucleotide sequence)
+    result_directory : Name of main result directory
+    file_prefix : Name of the file prefix to be saved, e.g. TEST_1.fast5, prefix = TEST
+    folder: Name of the folder where FAST5 files will be stored
+    encode: Set this to True if the basecaller requires the read_id to be set as string instead of int
+    """
+
     directory = os.path.join(result_directory, folder)
 
     if not os.path.exists(directory):
@@ -30,18 +50,18 @@ def generate_signal(data, result_directory: str, file_prefix: str = 'TEST', fold
 
 def simulate_read(seq, out_filepath, read_identity):
     """
-    Simulates nanopore sequencer, writes to file
+    --DESCRIPTION--
+    Generates nanopore sequencing signals based on the input sequence - signals are saved to FAST5 file
+    Refer to the above links regarding metadata for FAST5 saving
+    Do note that the metadata is dependent on the latest versions of ONT nanopore sequencers
+
     Parameters
     ----------
-    seq : string
-        Nucleotide sequence
-    out_filepath : string
-        Name of FAST5 file which will be written as result of read.
-        directory by default.
-    read_identity : str
+    seq : Nucleotide sequence
+    out_filepath : Name of FAST5 file to be saved
+    read_identity : str (randomised during generate signal stage)
     """
 
-    # Using https://nanoporetech.github.io/fast5_research/examples.html as a reference
     squiggle = scrappy.sequence_to_squiggle(seq, rescale=True).data(as_numpy=True)
     raw_data = np.array([])
 

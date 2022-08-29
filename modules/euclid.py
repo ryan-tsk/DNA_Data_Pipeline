@@ -1,11 +1,27 @@
+"""
+Euclid encoding used to test modularity of pipeline (Run 9)
+Code from this section is adapted from : https://github.com/Omer-Sella/Euclid ; written by Omer Sella
+The original code has been modified to accommodate the DNA Storage Pipeline Project
+"""
+
 import numpy as np
-import os
 from Euclid.produceEuclidEncoding import makeFSM, trackGClevel, completelyRandom
 from Euclid import convolutional
 from Euclid import mapping
 
 
-def euclidEncode(data, filepath, assignMech, segment_length:int =0):
+def euclidEncode(data, filepath, assignMech, segment_length: int = 0):
+    """
+    --DESCRIPTION--
+    Euclid encoding extended from FSM (TurboDNA)
+
+    --PARAMETERS--
+    data: incoming binary data to be encoded
+    filepath: filepath to dictionary file that is used to create Euclid FSM
+    assignMech: Euclid mechanism - current only trackGClevel and compeletelyRandom are supported
+    segment_length: input/output translation function - used to cut the output into a specific segment length
+    """
+
     mechanism = completelyRandom
     if assignMech == 'track':
         mechanism = trackGClevel

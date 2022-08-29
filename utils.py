@@ -1,3 +1,8 @@
+"""
+Basic utility functions
+"""
+
+
 import json
 import os
 import shutil
@@ -47,5 +52,3 @@ def cleanup(directory):
             os.unlink(path)
         elif os.path.isdir(path):
             shutil.rmtree(path)
-
-#make common util functions for read, write, data conversion, etc

@@ -1,9 +1,6 @@
-'''
-
-
-
-
-'''
+"""
+Alignment module used to align all FASTA/FASTQ files in a directory and to create a dirty consensus sequence
+"""
 
 
 import subprocess
@@ -18,6 +15,23 @@ from natsort import natsorted
 
 
 def align_sequences(directory: str, result_directory: str, wrapper: str, filename: str, variables: dict = None):
+    """
+    --DESCRIPTION--
+    Align sequences will loop through each FASTA file in the specified directory
+    AlignIO wrapper will generate a command line depending on the wrapper installed
+    Each FASTA fill will be aligned by executing the command in a subprocess
+    The aligned results are saved to a temporary FASTA file
+    The temporary FASTA file is read and a consensus is created from the temporary FASTA file
+    Each consensus sequence is then appended to a list
+    The final consensus sequence is a join of the consensus list
+
+    --PARAMETERS--
+    directory: directory path where all files to be aligned are stored
+    result_directory: result directory path - consensus sequence is stored here
+    wrapper: type of alignment programmed to bee used (clustalw, muscle, clustalo, prank)
+    filename: name of the result file storing the consensus sequence
+    variables: any additional variables that should be passed to the AlignIO wrapper
+    """
     consensus_list = []
 
     if variables is None:

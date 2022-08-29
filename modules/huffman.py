@@ -1,6 +1,6 @@
 """
 Huffman compression adapted from : https://github.com/bhrigu123/huffman-coding
-The original code has been modified for the purpose of building a DNA data storage pipeline
+The original code has been modified to accommodate the DNA Storage Pipeline Project
 """
 
 import heapq, os
@@ -10,6 +10,9 @@ from utils import write_json, load_json
 
 
 class HuffmanNode:
+    """
+    Huffman node object used to create Huffman tree
+    """
     def __init__(self, char, freq: int, left=None, right=None):
         self.char = char
         self.freq = freq
@@ -26,6 +29,13 @@ class HuffmanNode:
 
 
 def get_frequencies(data):
+    """
+    --DESCRIPTION--
+    Gets the frequencies of each character in the data stream
+
+    --PARAMETERS--
+    data: input string
+    """
     frequencies = {}
     for char in data:
         if char not in frequencies:
@@ -37,6 +47,13 @@ def get_frequencies(data):
 
 
 def create_heap(frequencies):
+    """
+    --DESCRIPTION--
+    Create a heap (Huffman tree) using the character frequencies
+
+    --PARAMETERS-
+    frequencies: dictionary data item containing the frequency of each character
+    """
     heap = []
     for key in frequencies:
         node = HuffmanNode(key, frequencies[key])
@@ -52,6 +69,16 @@ def create_heap(frequencies):
 
 
 def traverse(root, code, forward_codebook, reverse_codebook):
+    """
+    --DESCRIPTION--
+    Recursive function, traversing through the heap
+
+    --PARAMETERS--
+    root: current heap node
+    code: binary code of the current node
+    forward codebook: dictionary storing the forward mapping of character to binary
+    reverse codebook: dictionary storing the reverse mapping of binary to character
+    """
     if root is None:
         return
     if root.char is not None:
@@ -64,6 +91,16 @@ def traverse(root, code, forward_codebook, reverse_codebook):
 
 
 def generate_codebook(data, codebook_path):
+    """
+    --DESCRIPTION--
+    Recursive function, traversing through the heap
+
+    --PARAMETERS--
+    root: current heap node
+    code: binary code of the current node
+    forward codebook: dictionary storing the forward mapping of character to binary
+    reverse codebook: dictionary storing the reverse mapping of binary to character
+    """
     forward_codebook = {}
     reverse_codebook = {}
 
@@ -76,6 +113,16 @@ def generate_codebook(data, codebook_path):
 
 
 def compress(data, result_directory, reverse_filename: str, forward_filename: str = None):
+    """
+    --DESCRIPTION--
+    Compression function used to perform Huffman compression
+
+    --PARAMETERS--
+    data: incoming ASCII data
+    result_directory: directory where reverse_filename is saved
+    reverse_filename: save reverse codebook to be used for decompression
+    forward_filename: same as reverse filename but for forward - only use this if saving for reference
+    """
     forward_codebook = generate_codebook(data, os.path.join(result_directory, reverse_filename))
     encoded = text_to_binary(data=data, codebook=forward_codebook)
 
@@ -86,6 +133,15 @@ def compress(data, result_directory, reverse_filename: str, forward_filename: st
 
 
 def decompress(data, result_directory, reverse_filename):
+    """
+    --DESCRIPTION--
+    Decompression function
+
+    --PARAMETERS--
+    data: incoming binary data
+    result_directory: directory where reverse_filename is saved
+    reverse_filename: load reverse codebook to be used for decompression
+    """
     reverse_codebook = load_json(os.path.join(result_directory, reverse_filename))
     decoded = binary_to_text(data=data, codebook=reverse_codebook)
     return decoded

@@ -1,3 +1,5 @@
+#Refer to template.yaml for configuration reference
+
 Environment:
   input: test_data/short_data.txt
   name: A2    #Subfolder

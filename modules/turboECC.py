@@ -1,14 +1,21 @@
-# Original code is by a previous MEng student: https://github.com/jasminequah/dna_archival_storage
-# This code has been modified to fit into the DNA data storage pipeline
+"""
+TurboDNA encoding adapted from : https://github.com/jasminequah/dna_archival_storage
+The original code has been modified to accommodate the DNA Storage Pipeline Project
+"""
 
-from utils import read_textfile
 from turboDNA import convolutional
-
 import numpy as np
-import os
 
 
 def set_variables(rate):
+    """
+    --DESCRIPTION--
+    Sets the metadata for FSM creation
+
+    Parameters
+    ----------
+    rate: Code rate for TurboDNA encoding (1/3, 1/2, 2/3)
+    """
     if rate == '1/3':
         # ONE THIRD
         print("Using 1/3 code")
@@ -63,9 +70,15 @@ def set_variables(rate):
     return fsm, symbolSize
 
 
-def encode(data, result_directory, rate, input_path=None, output_filename=None):
-    if input_path is not None:
-        data = read_textfile(input_path)
+def encode(data, rate):
+    """
+    --DESCRIPTION--
+    Sets the metadata for FSM creation
+
+    --Parameters--
+    data: input binary data to be encoded
+    rate: Code rate for TurboDNA encoding (1/3, 1/2, 2/3)
+    """
 
     fsm, symbol_size = set_variables(rate)
     bin_streams = [[int(bin) for bin in bin_seq] for bin_seq in data.split('\n')]
@@ -85,22 +98,20 @@ def encode(data, result_directory, rate, input_path=None, output_filename=None):
                 encoded_flatstream.append(str(item))
         encoded_flatstreams.append(''.join(encoded_flatstream))
 
-    if output_filename is not None:
-        path = os.path.join(result_directory, output_filename)
-        with open(path, 'w') as enc:
-            for encoded_flatstream in encoded_flatstreams:
-                enc.write("%s\n" % encoded_flatstream)
-
     return encoded_flatstreams
 
 
-def decode(data, result_directory, rate, input_path=None, output_filename=None):
+def decode(data, rate):
     """
-        Decodes DNA nucleotide sequences using Viterbi decoder and FSM into decoded ASCII file.
+    --DESCRIPTION--
+    Decodes DNA nucleotide sequences using Viterbi decoder - returns decoded ASCII data
+
+
+    --Parameters--
+    ----------
+    data: input binary data
+    rate: Code rate for TurboDNA encoding (1/3, 1/2, 2/3)
     """
-    if input_path is not None:
-        data = read_textfile(input_path)
-        data = data.split('\n')
 
     fsm, symbolSize = set_variables(rate)
 
@@ -126,11 +137,5 @@ def decode(data, result_directory, rate, input_path=None, output_filename=None):
             for item in sublist:
                 decoded_flatstream.append(str(item))
         decoded_flatstreams.append(''.join(decoded_flatstream))
-
-    if output_filename is not None:
-        path = os.path.join(result_directory, output_filename)
-        with open(path, 'w') as decoded_file:
-            for seq in decoded_flatstreams:
-                decoded_file.write("%s\n" % ''.join(seq))
 
     return decoded_flatstreams

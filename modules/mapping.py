@@ -14,9 +14,16 @@ If rate = 2/3, nt_len = 300, bin_len = 400
 from utils import read_textfile
 
 
-def nt_mapping(data, input_path=None, binary_to_nt: bool = True, nt_len: int = 300):
-    if input_path is not None:
-        data = read_textfile(input_path, readlines=True)
+def nt_mapping(data, binary_to_nt: bool = True, nt_len: int = 300):
+    """
+    --DESCRIPTION--
+    Converts text to binary
+
+    --PARAMETER--
+    data: input ASCII/binary data
+    binary_to_nt: set to True if converting from binary to nt, False otherwise
+    nt_len: nucleotide length that must be set if using TurboDNA - refer to earlier coderates for more information
+    """
 
     output = []
     for seq in data:
@@ -32,7 +39,11 @@ def nt_mapping(data, input_path=None, binary_to_nt: bool = True, nt_len: int = 3
 
 def binary_to_bases(bin_seq):
     """
-        Converts binary string sequence to DNA nucleotide sequence.
+    --DESCRIPTION--
+    Converts binary string sequence to DNA nucleotide sequence
+
+    --PARAMETER--
+    bin_seq: binary sequence
     """
     mapping = {'00': 'A', '01': 'C', '10': 'G', '11': 'T'}
     return ''.join(mapping[bin_seq[i*2:i*2+2]] for i in range(len(bin_seq)//2))
@@ -40,16 +51,28 @@ def binary_to_bases(bin_seq):
 
 def bases_to_binary(dna_seq):
     """
-        Converts DNA nucleotide sequence to binary string sequence.
+    --DESCRIPTION--
+    Converts DNA nucleotide sequence to binary string sequence
+
+    --PARAMETER--
+    dna_seq: DNA sequence
     """
     mapping = {'A': '00', 'C': '01', 'G': '10', 'T': '11'}
     return ''.join(mapping[nt] for nt in dna_seq)
 
 
-def text_to_binary(data, input_path=None, text_type: str = 'utf-8', bin_len: int = 200,
-                   codebook: dict = None):
-    if input_path is not None:
-        data = read_textfile(input_path)
+def text_to_binary(data, text_type: str = 'utf-8', bin_len: int = 200, codebook: dict = None):
+    """
+    --DESCRIPTION--
+    Converts text to binary
+
+    --PARAMETER--
+    data: input ASCII data
+    text_type: used to specify the text type for byte conversion
+    bin_len: maximum binary length - this needs to be set if using
+    codebook: only used for Huffman compression
+    """
+
     bin_sequence = ''
 
     if codebook is None:
@@ -71,10 +94,17 @@ def text_to_binary(data, input_path=None, text_type: str = 'utf-8', bin_len: int
     return bin_sequence
 
 
-def binary_to_text(data, input_path=None, codebook: dict = None):
-    if input_path is not None:
-        data = read_textfile(input_path)
-        data = data.replace('\n', '')
+def binary_to_text(data, codebook: dict = None):
+    """
+    --DESCRIPTION--
+    Converts binary to text
+
+    --PARAMETER--
+    data: input binary data (string)
+    input path: additionally supplementary input used to replace data if need to read from file
+    codebook: only used for Huffman compression
+    """
+
     text = ""
     data = "".join(data)
 

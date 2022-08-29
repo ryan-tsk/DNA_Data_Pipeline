@@ -16,6 +16,16 @@ from utils import write_textfile, convert_to_fasta
 
 
 def create_ground_truth(seqs, result_directory, filename: str, prefix_id: str = 'TEST'):
+    """
+    --DESCRIPTION--
+    Creates a ground truth file
+
+    --PARAMETERS--
+    seqs: list of sequence reads
+    result_directory: main result directory where all results are stored
+    filename: ground truth filename
+    prefix_id: prefix used to match ground truth reads with basecall reads
+    """
     ground_truth = []
     filepath = os.path.join(result_directory, filename)
     for i, seq in enumerate(seqs):
@@ -29,6 +39,18 @@ def create_ground_truth(seqs, result_directory, filename: str, prefix_id: str = 
 
 def create_weighted_fasta(bc_filename, result_directory, gt_filename: str, folder: str = 'weighted',
                           weight: int = 100, prefix_id: str = 'TEST'):
+    """
+    --DESCRIPTION--
+    Creates a weighted FASTA file by combining the basecall read + ground truth * weight
+
+    --PARAMETERS--
+    bc_filename: output from basecaller
+    result_directory: main result directory where all results are stored
+    gt_filename: ground truth filename
+    folder: directory where all fasta files are stored
+    weight: number of duplications per read
+    prefix_id: prefix used to match ground truth reads with basecall reads
+    """
     bc_path = os.path.join(result_directory, bc_filename)
     gt_path = os.path.join(result_directory, gt_filename)
     directory = os.path.join(result_directory, folder)

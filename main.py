@@ -1,3 +1,8 @@
+"""
+Simple main script with argument parser
+"""
+
+
 import argparse
 
 from node import Pipeline
