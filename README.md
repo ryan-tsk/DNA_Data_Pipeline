@@ -10,6 +10,8 @@ git clone --recursive https://github.com/ryan-tsk/DNA_Data_Pipeline
 conda create --name DNApipeline python=3.8
 conda activate DNApipeline
 pip install -r requirements.txt
+git clone https://github.com/Omer-Sella/turboDNA
+git clone https://github.com/Omer-Sella/Euclid
 ```
 
 ### Bonito
