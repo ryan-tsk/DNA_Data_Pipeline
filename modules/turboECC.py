@@ -18,7 +18,6 @@ def set_variables(rate):
     """
     if rate == '1/3':
         # ONE THIRD
-        print("Using 1/3 code")
         states = [0, 1, 2, 3, 4, 5, 6, 7]
         triggers = [[0], [1]]
         nextStateTable = np.array([[0, 4], [0, 4], [1, 5], [1, 5], [2, 6], [2, 6], [3, 7], [3, 7]])
@@ -36,7 +35,6 @@ def set_variables(rate):
 
     elif rate == '1/2':
         # HALF
-        print("Using 1/2 code")
         states = [0, 1, 2, 3]
         triggers = [[0], [1]]
         nextStateTable = np.array([[0, 1], [2, 3], [0, 1], [2, 3]])
@@ -49,7 +47,6 @@ def set_variables(rate):
         # bin_max_len = 150 for 150nt, else 300 for 300 nt
 
     else:
-        print("Using 2/3 code")
         states = [0, 1, 2, 3, 4, 5, 6, 7]
         triggers = [[0, 0], [0, 1], [1, 0], [1, 1]]
         nextStateTable = np.array(
@@ -83,7 +80,6 @@ def encode(data, rate):
     fsm, symbol_size = set_variables(rate)
     bin_streams = [[int(bin) for bin in bin_seq] for bin_seq in data.split('\n')]
 
-    print("Encoding...")
     encoded_streams = []
     for bin_stream in bin_streams:
         fsm.presentState = 0  # TODO: make a function in FSM to reset
