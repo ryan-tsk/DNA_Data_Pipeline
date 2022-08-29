@@ -58,3 +58,19 @@ export PATH=$PATH:/alignments/bin/clustalo
 ```
 
 ## User Guide
+
+### Configuration and Modules
+Place all function files in one modules folder  
+Refer to template.yaml for more information on creating Configuration files
+
+### Running the Pipeline
+Use main.py to run the pipeline:
+```
+python3 main.py -c=config/config_A1.yaml -s=True
+```
+Refer to main.py --help for supported arguments
+
+
+
+
+
