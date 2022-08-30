@@ -2,7 +2,7 @@
 
 Environment:
   input: test_data/demo.txt
-  name: demo    #Subfolder
+  name: demo   #Subfolder
 
 Compression:
   nodetype: function
