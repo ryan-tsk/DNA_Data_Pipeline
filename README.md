@@ -10,6 +10,8 @@ git clone --recursive https://github.com/ryan-tsk/DNA_Data_Pipeline
 conda create --name DNApipeline python=3.8
 conda activate DNApipeline
 pip install -r requirements.txt
+git clone https://github.com/Omer-Sella/turboDNA
+git clone https://github.com/Omer-Sella/Euclid
 ```
 
 ### Bonito
@@ -58,3 +60,19 @@ export PATH=$PATH:/alignments/bin/clustalo
 ```
 
 ## User Guide
+
+### Configuration and Modules
+Place all function files in one modules folder  
+Refer to template.yaml for more information on creating Configuration files
+
+### Running the Pipeline
+Use main.py to run the pipeline:
+```
+python3 main.py -c=config/config_A1.yaml -s=True
+```
+Refer to main.py --help for supported arguments
+
+
+
+
+
