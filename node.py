@@ -238,6 +238,10 @@ class Pipeline:
                 filename = f'{i}_{suffix}.txt'
                 write_textfile(os.path.join(self.stage_directory, filename), stage_result, writelines=True)
 
+            message = f'{node.name} node completed'
+            logging.info(message)
+            print(message)
+
         write_textfile(os.path.join(self.result_directory, self.output_path), data)
 
     def _init_environment(self, variables: dict):
